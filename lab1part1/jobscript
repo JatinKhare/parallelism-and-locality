@@ -1,12 +1,51 @@
 #!/bin/bash
 
 #SBATCH -J myjob           # Job name
-#SBATCH -o %j       # Name of stdout output file
+#SBATCH -o %j_o4096       # Name of stdout output file
+#SBATCH -e %j_e4096      # Name of stdout output file
 #SBATCH -p skx-normal      # Queue (partition) name
 #SBATCH -N 1               # Total # of nodes (must be 1 for serial)
 #SBATCH -n 1               # Total # of mpi tasks (should be 1 for serial)
-#SBATCH -t 01:30:00        # Run time (hh:mm:ss)
-#SBATCH -A mmltply      # Allocation name (req'd if you have more than 1)
+#SBATCH -t 04:30:00        # Run time (hh:mm:ss)
+#SBATCH -A CCR21003      # Allocation name (req'd if you have more than 1)
 
-./myprogram         # Do not use ibrun or any other MPI launcher
+gcc matmul.c -o matmul -O3
+perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-stores:u ./matmul
+perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
+perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
+perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
+perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
+perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
+perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
+perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
+perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
+perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
+perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
+perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
+perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
+perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
+perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
+perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
+perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
+perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
+perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
+perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
+
+
+# cycles:u
+# instructions:u
+# cache-references:u
+# cache-misses:u
+# L1-dcache-stores:u
+# L1-dcache-load-misses:u
+# L1-dcache-load-misses    
+# L1-dcache-loads          
+# L1-dcache-stores         
+# L1-icache-load-misses    
+# LLC-load-misses          
+# LLC-loads                
+# LLC-store-misses         
+# LLC-stores
+# fp_arith_inst_retired.scalar_single
+
 

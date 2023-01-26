@@ -1,9 +1,9 @@
 #include <stdlib.h>
 
 // define the matrix dimensions A is MxP, B is PxN, and C is MxN
-#define M 512
-#define N 512
-#define P 512
+#define M 32
+#define N 32
+#define P 32
 
 // calculate C = AxB
 void matmul(float **A, float **B, float **C) {

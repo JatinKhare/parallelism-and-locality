@@ -1,0 +1,13 @@
+ Performance counter stats for './matmul':
+
+           901,077      cycles:u
+           801,075      instructions:u            #    0.89  insn per cycle
+             8,192      cache-references:u
+             1,478      cache-misses:u            #   18.042 % of all cache refs
+           232,525      L1-dcache-loads
+
+       0.002390168 seconds time elapsed
+
+       0.001110000 seconds user
+       0.000926000 seconds sys
+
