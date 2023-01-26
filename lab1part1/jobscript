@@ -32,20 +32,23 @@ perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache
 perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
 
 
-# cycles:u
-# instructions:u
-# cache-references:u
-# cache-misses:u
-# L1-dcache-stores:u
-# L1-dcache-load-misses:u
-# L1-dcache-load-misses    
+# ref-cycles:u
 # L1-dcache-loads          
-# L1-dcache-stores         
-# L1-icache-load-misses    
+# L1-dcache-load-misses    
+# l2_rqsts.references
+# l2_rqsts.miss
+
+# cycles:u
 # LLC-load-misses          
 # LLC-loads                
+# cache-references:u
+# cache-misses:u
+
+ 
+#IGNORE
+# instructions:u
+# L1-icache-load-misses    
+# L1-dcache-stores         
+# fp_arith_inst_retired.scalar_single
 # LLC-store-misses         
 # LLC-stores
-# fp_arith_inst_retired.scalar_single
-
-

@@ -23,7 +23,7 @@ for line in file1:
 		line = line.rstrip()
 	print(line)
 	split_line = line.split("cycles:u")
-	#print(len(split_line))
+	print(len(split_line))
 	#print(split_line[0])
 	fma_perf.append(split_line[0])
 #closing text file
