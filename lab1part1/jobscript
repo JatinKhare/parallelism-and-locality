@@ -6,30 +6,14 @@
 #SBATCH -p skx-normal      # Queue (partition) name
 #SBATCH -N 1               # Total # of nodes (must be 1 for serial)
 #SBATCH -n 1               # Total # of mpi tasks (should be 1 for serial)
-#SBATCH -t 04:30:00        # Run time (hh:mm:ss)
+#SBATCH -t 00:30:00        # Run time (hh:mm:ss)
 #SBATCH -A CCR21003      # Allocation name (req'd if you have more than 1)
 
 gcc matmul.c -o matmul -O3
-perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-stores:u ./matmul
-perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
-perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
-perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
-perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
-perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
-perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
-perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
-perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
-perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
-perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
-perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
-perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
-perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
-perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
-perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
-perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
-perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
-perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
-perf stat -e cycles:u,instructions:u,cache-references:u,cache-misses:u,L1-dcache-loads:u ./matmul
+gcc matmul_loop_interchange.c -o matmul_inter -O3
+perf stat -e ref-cycles:u,L1-dcache-loads:u,L1-dcache-load-misses:u,l2_rqsts.references:u,l2_rqsts.miss:u ./matmul
+perf stat -e ref-cycles:u,L1-dcache-loads:u,L1-dcache-load-misses:u,l2_rqsts.references:u,l2_rqsts.miss:u ./matmul_inter
+#perf stat -e cycles:u LLC-load-misses LLC-loads cache-references:u cache-misses:u
 
 
 # ref-cycles:u

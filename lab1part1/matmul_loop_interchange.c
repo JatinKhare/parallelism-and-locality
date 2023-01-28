@@ -14,10 +14,10 @@ void matmul(float **A, float **B, float **C) {
 
   for (i=0; i<M; i++) {
     // for each row of C
-    for (j=0; j<N; j++) {
+      for (k=0; k<P; k++) {
       // for each column of C
       sum = 0.0f; // temporary value
-      for (k=0; k<P; k++) {
+	    for (j=0; j<N; j++) {
         // dot product of row from A and column from B
         sum += A[i][k]*B[k][j];
       }
