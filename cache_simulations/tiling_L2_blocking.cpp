@@ -6,30 +6,18 @@
 using namespace std;
 
 
-FILE *fp, *fp2, *fp3;
-void save_file(int Z, long int value){
-char const *filename = "our_hit_rate_tiling_L2_blocking.csv";
-fp = fopen(filename,"a+");
-fprintf(fp,"%d ", Z);
-fprintf(fp,", %ld \n", value);
-}
-void save_file_2(int Z, long int value){
-char const *filename = "our_access_tiling_L2_blocking.csv";
-fp2 = fopen(filename,"a+");
-fprintf(fp2,"%d ", Z);
-fprintf(fp2,", %ld \n", value);
-}
+FILE *fp1, *fp2;
 void save_file_3(int Z, long int value){
 char const *filename = "L2_access_tiling_L2_blocking.csv";
-fp3 = fopen(filename,"a+");
-fprintf(fp3,"%d ", Z);
-fprintf(fp3,", %ld \n", value);
+fp1 = fopen(filename,"a+");
+fprintf(fp1,"%d ", Z);
+fprintf(fp1,", %ld \n", value);
 }
 void save_file_4(int Z, float value){
 char const *filename = "L2_hits_tiling_L2_blocking.csv";
-fp3 = fopen(filename,"a+");
-fprintf(fp3,"%d ", Z);
-fprintf(fp3,", %f \n", value);
+fp2 = fopen(filename,"a+");
+fprintf(fp2,"%d ", Z);
+fprintf(fp2,", %f \n", value);
 }
 
 class LRUCache {
@@ -63,17 +51,12 @@ public:
 		return true;
 	}
 
-	void refer(int key, LRUCache* cache2) {
+	void refer(int key) {
 		final_access++;
 		//cout<<key<<" referenced\n";
         if (get(key)) {
 			return;
 		}
-		else if(cache2->get(key)){
-			return;
-		}
-		else
-			cache2->put(key);
 		put(key);
 	}
 
@@ -114,8 +97,8 @@ public:
 };
 
 int main() {
-	int M = 32, P = 16, N = 8, B2 = 8, B1 = 4;
-	int Z1 = 30;
+	int M = 32, P = 8, N = 12, B2 = 4, B1 = 2;
+	int Z2;
 	//int Z = 30;
 //	cout<<"N = "<<N<<"; Z = "<<Z<<"\n";
  
@@ -125,11 +108,12 @@ remove("L2_hits_tiling_L2_blocking.csv");
 remove("L2_access_tiling_L2_blocking.csv");
 float previous = 1;
 int flag = 1;
-	for(int Z2 = 1; Z2 <= 3*N*N; Z2++) { //M*P + P*N + M*N; Z++){
+remove("L2_hits_tiling_L2_blocking");
+	for(int Z2 = 1; Z2 <= N*P + P*N + M*N; Z2++) { //M*P + P*N + M*N; Z++){
 		vector<int>a, b, c;
 		
 		for(int i=0; i<M*P; i++) {
-			a.push_back(i);
+mmul.c			a.push_back(i);
 		}
 		for(int i=0; i<P*N; i++) {
 			b.push_back(i+M*P);
@@ -137,8 +121,8 @@ int flag = 1;
 		for(int i=0; i<M*N; i++) {
 			c.push_back(i+ M*P + P*N);
 		}
-		LRUCache cache(Z1);
-		LRUCache cache2(Z2);
+		LRUCache cache(Z2);
+		//LRUCache cache2(Z2);
 		for(int i=0; i<M; i=i+B2) {
 			for(int j=0; j<N; j=j+B2) {
 				for(int k=0; k<P; k=k+B2) {
@@ -150,9 +134,9 @@ int flag = 1;
 								for(int i_b_b=i_b; i_b_b<i_b+B1; i_b_b++) {
 									for(int j_b_b=j_b; j_b_b<j_b+B1; j_b_b++) {
 										for(int k_b_b=k_b; k_b_b<k_b+B1; k_b_b++) {  
-											cache.refer(a[i_b_b * P + k_b_b], &cache2);
-											cache.refer(b[k_b_b * P + j_b_b], &cache2);
-											cache.refer(c[i_b_b * P + j_b_b], &cache2);
+											cache.refer(a[i_b_b * P + k_b_b]);
+											cache.refer(b[k_b_b * P + j_b_b]);
+											cache.refer(c[i_b_b * P + j_b_b]);
 										}
 									}
 								}
@@ -200,29 +184,12 @@ int flag = 1;
 			cout<<"[FAILED]"<<endl;
 		}
 	*/
-		save_file(Z1, cache.hits_n());
-		save_file_2(Z1, cache.acc_n());
-		save_file_3(Z2, cache2.acc_n());
-		save_file_4(Z2, (float)cache2.hits_n()/(float)cache2.acc_n());
-		cout<<"Now = "<<(float)cache2.hit_rate()<<", old = "<<previous<<", Z2 = "<<Z2<<endl;
-		if(((float)cache2.hit_rate() == previous)){
-			cout<<"Z2 = "<<Z2<<endl;
-			previous = 0;
-		}
-		else if (previous!=0 && (float)cache2.hit_rate()/(float)previous > 1.10){
-			cout<<"Z2 = "<<Z2<<endl;
-		previous = (float) cache2.hit_rate(); 
-		}	
-		else{
-		previous = (float) cache2.hit_rate(); 
-		}
-		cout<<"final_access = "<<cache.final_access;
-
+		save_file_3(Z2, cache.hits_n());
+		save_file_4(Z2, (float)cache.hits_n()/(float)cache.acc_n());
+		cout<<"final access = "<<cache.final_access<<endl;
 	}
-fclose(fp);
+fclose(fp1);
 fclose(fp2);
-fclose(fp3);
-
 
 	return 0;
 }

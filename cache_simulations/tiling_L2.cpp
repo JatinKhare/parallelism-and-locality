@@ -110,13 +110,15 @@ int final_access;
 };
 
 int main() {
-	int M = 17, P = 27, N = 11;
-	int Z2 = 719;
+	int M = 8, P = 4, N = 4;
+	int Z1 = 21;
 	//int Z = 30;
 //	cout<<"N = "<<N<<"; Z = "<<Z<<"\n";
  
+remove("L2_hits_tiling.csv");
 
-	for(int Z = 617; Z <=617; Z++) { //M*P + P*N + M*N; Z++){
+
+	for(int Z2 = 1; Z2 <=3*M*N*P; Z2++) { //M*P + P*N + M*N; Z++){
 		vector<int>a, b, c;
 		
 		for(int i=0; i<M*P; i++) {
@@ -128,7 +130,7 @@ int main() {
 		for(int i=0; i<M*N; i++) {
 			c.push_back(i+ M*P + P*N);
 		}
-		LRUCache cache(Z);
+		LRUCache cache(Z1);
 		LRUCache cache2(Z2);
 		for(int i=0; i<M; i++) {
 	    for(int j=0; j<N; j++) {
@@ -177,8 +179,8 @@ int main() {
 			cout<<"[FAILED]"<<endl;
 		}
 	*/
-		save_file(Z, cache.hits_n());
-		save_file_2(Z, cache.acc_n());
+		save_file(Z1, cache.hits_n());
+		save_file_2(Z1, cache.acc_n());
 		save_file_3(Z2, cache2.acc_n());
 		save_file_4(Z2, (float)cache2.hits_n()/(float)cache2.acc_n());
 	//	cout<<"Z = <<"<<Z<<"hits = "<<cache.hits_n()<<endl;

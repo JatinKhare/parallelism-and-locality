@@ -2,18 +2,18 @@
 #include <xmmintrin.h>
 
 // define the matrix dimensions A is MxP, B is PxN, and C is MxN
-#define m 32
-#define n 32
-#define k 32
+#define M 32
+#define N 32
+#define P 32
 #define BLOCK_SIZE_I 16
 #define BLOCK_SIZE_J 16
 #define BLOCK_SIZE_K 16
 
 // calculate C = AxB
 void matmul(double **A, double  **B, double **C) {
-    for (int i = 0; i < m; i += BLOCK_SIZE_I) {
-        for (int j = 0; j < n; j += BLOCK_SIZE_J) {
-            for (int l = 0; l < k; l += BLOCK_SIZE_K) {
+    for (int i = 0; i < M; i += BLOCK_SIZE_I) {
+        for (int j = 0; j < N; j += BLOCK_SIZE_J) {
+            for (int l = 0; l < P; l += BLOCK_SIZE_K) {
                 for (int ii = i; ii < i + BLOCK_SIZE_I; ii += BLOCK_SIZE_I/4) {
                     for (int jj = j; jj < j + BLOCK_SIZE_J; jj += BLOCK_SIZE_J/4) {
                         for (int ll = l; ll < l + BLOCK_SIZE_K; ll += BLOCK_SIZE_K/4) {
@@ -58,9 +58,9 @@ int main() {
   double** B;
   double** C;
 
-  create_matrix(&A, m, k);
-  create_matrix(&B, k, n);
-  create_matrix(&C, m, n);
+  create_matrix(&A, M, P);
+  create_matrix(&B, P, N);
+  create_matrix(&C, M, N);
 
   // assume some initialization of A and B
   // think of this as a library where A and B are

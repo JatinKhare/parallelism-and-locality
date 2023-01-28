@@ -94,12 +94,12 @@ public:
 	}
 };
 int main() {
-	int M = 2, P = 8, N = 4, B = 2;
+	int M = 32, P = 8, N = 12, B = 4;
 remove("tiling_total_accesses.csv");
 remove("tiling_hits.csv");
 
 
-	for(int Z = 1; Z <= 3*(M*N+M*P+P*N); Z++) { //M*P + P*N + M*N; Z++){
+	for(int Z = 1; Z <= (M*N + N*P + P*N); Z++) { //M*P + P*N + M*N; Z++){
 		vector<int>a, b, c;
 		
 		for(int i=0; i<M*P; i++) {

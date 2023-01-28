@@ -92,14 +92,11 @@ public:
 };
 
 int main() {
-	int M = 2, P = 2, N = 2;
+	int M = 32, P = 16, N = 8;
 	int Z = 0;
-	cout<<"N = "<<N<<"; Z = "<<Z<<"\n";
- 
-
 	remove("rect_accesses.csv");
 	remove("rect_hits.csv");
-	for(Z = 1; Z <= 14/*M*P + P*N + M*N*/; Z++){
+	for(Z = 1; Z <= 3*M*P*N; Z++){
     vector<int>a, b, c;
 	
     for(int i=0; i<M*P; i++) {
