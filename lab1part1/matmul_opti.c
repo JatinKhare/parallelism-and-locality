@@ -2,12 +2,12 @@
 #include <xmmintrin.h>
 
 // define the matrix dimensions A is MxP, B is PxN, and C is MxN
-#define M 32
-#define N 32
-#define P 32
-#define BLOCK_SIZE_I 16
-#define BLOCK_SIZE_J 16
-#define BLOCK_SIZE_K 16
+#define M 512
+#define N 512
+#define P 512
+#define BLOCK_SIZE_I 256
+#define BLOCK_SIZE_J 256
+#define BLOCK_SIZE_K 256
 
 // calculate C = AxB
 void matmul(double **A, double  **B, double **C) {
@@ -42,13 +42,13 @@ void matmul(double **A, double  **B, double **C) {
 // creates an mXn matrix and returns the pointer.
 //
 // the matrices are in row-major order.
-void create_matrix(float*** A, int m, int n) {
-  float **T = 0;
+void create_matrix(double*** A, int m, int n) {
+  double **T = 0;
   int i;
 
-  T = (float**)malloc( m*sizeof(float*));
+  T = (double**)malloc( m*sizeof(double*));
   for ( i=0; i<m; i++ ) {
-     T[i] = (float*)malloc(n*sizeof(float));
+     T[i] = (double*)malloc(n*sizeof(double));
   }
   *A = T;
 }
@@ -59,6 +59,9 @@ int main() {
   double** C;
 
   create_matrix(&A, M, P);
+  for(int i = 0; i<M ;i++)
+	  for(int j = 0; j<P ;j++)
+		A[i][j] = i-j;
   create_matrix(&B, P, N);
   create_matrix(&C, M, N);
 

@@ -1,0 +1,43 @@
+matmul.c: In function ‘matmul’:
+matmul.c:82:14: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+              printf("Level 3 Case\n");
+              ^~~~~~
+matmul.c:82:14: warning: incompatible implicit declaration of built-in function ‘printf’
+matmul.c:82:14: note: include ‘<stdio.h>’ or provide a declaration of ‘printf’
+matmul.c:86:14: warning: incompatible implicit declaration of built-in function ‘printf’
+              printf("Oops :( Case\n");
+              ^~~~~~
+matmul.c:86:14: note: include ‘<stdio.h>’ or provide a declaration of ‘printf’
+
+ Performance counter stats for './matmul 512 -1 -1 -1' (20 runs):
+
+       317,546,389      ref-cycles:u                                                  ( +-  0.06% )
+       402,834,952      L1-dcache-loads                                               ( +-  0.00% )
+       103,271,427      L1-dcache-load-misses     #   25.64% of all L1-dcache hits    ( +-  0.07% )
+       103,312,930      l2_rqsts.references:u                                         ( +-  0.07% )
+         3,965,281      l2_rqsts.miss:u                                               ( +-  1.95% )
+
+         0.1552760 +- 0.0000955 seconds time elapsed  ( +-  0.06% )
+
+
+ Performance counter stats for './matmul 512 256 -1 -1' (20 runs):
+
+       307,396,984      ref-cycles:u                                                  ( +-  0.02% )
+       539,157,134      L1-dcache-loads                                               ( +-  0.00% )
+        10,447,717      L1-dcache-load-misses     #    1.94% of all L1-dcache hits    ( +-  0.09% )
+        11,411,197      l2_rqsts.references:u                                         ( +-  0.08% )
+           199,898      l2_rqsts.miss:u                                               ( +-  0.14% )
+
+         0.1502018 +- 0.0000625 seconds time elapsed  ( +-  0.04% )
+
+
+ Performance counter stats for './matmul 512 256 128 -1' (20 runs):
+
+       286,178,537      ref-cycles:u                                                  ( +-  0.04% )
+       404,948,821      L1-dcache-loads                                               ( +-  0.00% )
+         9,485,656      L1-dcache-load-misses     #    2.34% of all L1-dcache hits    ( +-  0.06% )
+        10,969,040      l2_rqsts.references:u                                         ( +-  0.22% )
+           243,332      l2_rqsts.miss:u                                               ( +-  0.28% )
+
+         0.1399151 +- 0.0000699 seconds time elapsed  ( +-  0.05% )
+
