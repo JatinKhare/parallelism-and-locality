@@ -1,0 +1,154 @@
+
+ Performance counter stats for './matmul 32 -1 -1 -1' (20 runs):
+
+           515,155      ref-cycles:u                                                  ( +-  0.63% )
+           234,170      L1-dcache-loads                                               ( +-  0.00% )
+             9,709      L1-dcache-load-misses     #    4.15% of all L1-dcache hits    ( +-  0.22% )
+            23,207      l2_rqsts.references:u                                         ( +-  0.26% )
+             8,452      l2_rqsts.miss:u                                               ( +-  0.21% )
+
+         0.0019534 +- 0.0000207 seconds time elapsed  ( +-  1.06% )
+
+
+ Performance counter stats for './matmul 32 16 -1 -1' (20 runs):
+
+           524,731      ref-cycles:u                                                  ( +-  0.62% )
+           275,310      L1-dcache-loads                                               ( +-  0.00% )
+             9,677      L1-dcache-load-misses     #    3.51% of all L1-dcache hits    ( +-  0.19% )
+            23,294      l2_rqsts.references:u                                         ( +-  0.27% )
+             8,472      l2_rqsts.miss:u                                               ( +-  0.19% )
+
+         0.0019428 +- 0.0000252 seconds time elapsed  ( +-  1.30% )
+
+
+ Performance counter stats for './matmul 32 8 -1 -1' (20 runs):
+
+           522,879      ref-cycles:u                                                  ( +-  0.56% )
+           284,360      L1-dcache-loads                                               ( +-  0.00% )
+             9,691      L1-dcache-load-misses     #    3.41% of all L1-dcache hits    ( +-  0.21% )
+            23,211      l2_rqsts.references:u                                         ( +-  0.21% )
+             8,441      l2_rqsts.miss:u                                               ( +-  0.21% )
+
+         0.0019825 +- 0.0000246 seconds time elapsed  ( +-  1.24% )
+
+
+ Performance counter stats for './matmul 32 4 -1 -1' (20 runs):
+
+           534,177      ref-cycles:u                                                  ( +-  0.79% )
+           304,407      L1-dcache-loads                                               ( +-  0.00% )
+             9,675      L1-dcache-load-misses     #    3.18% of all L1-dcache hits    ( +-  0.24% )
+            23,151      l2_rqsts.references:u                                         ( +-  0.28% )
+             8,400      l2_rqsts.miss:u                                               ( +-  0.24% )
+
+         0.0020228 +- 0.0000407 seconds time elapsed  ( +-  2.01% )
+
+
+ Performance counter stats for './matmul 32 2 -1 -1' (20 runs):
+
+           561,133      ref-cycles:u                                                  ( +-  0.47% )
+           353,622      L1-dcache-loads                                               ( +-  0.00% )
+             9,649      L1-dcache-load-misses     #    2.73% of all L1-dcache hits    ( +-  0.25% )
+            23,063      l2_rqsts.references:u                                         ( +-  0.27% )
+             8,412      l2_rqsts.miss:u                                               ( +-  0.23% )
+
+         0.0020037 +- 0.0000262 seconds time elapsed  ( +-  1.31% )
+
+
+ Performance counter stats for './matmul 32 16 8 -1' (20 runs):
+
+           527,474      ref-cycles:u                                                  ( +-  0.75% )
+           284,886      L1-dcache-loads                                               ( +-  0.00% )
+             9,653      L1-dcache-load-misses     #    3.39% of all L1-dcache hits    ( +-  0.23% )
+            23,173      l2_rqsts.references:u                                         ( +-  0.25% )
+             8,443      l2_rqsts.miss:u                                               ( +-  0.17% )
+
+         0.0019709 +- 0.0000203 seconds time elapsed  ( +-  1.03% )
+
+
+ Performance counter stats for './matmul 32 16 4 -1' (20 runs):
+
+           540,939      ref-cycles:u                                                  ( +-  1.14% )
+           306,550      L1-dcache-loads                                               ( +-  0.00% )
+             9,671      L1-dcache-load-misses     #    3.15% of all L1-dcache hits    ( +-  0.21% )
+            23,207      l2_rqsts.references:u                                         ( +-  0.26% )
+             8,456      l2_rqsts.miss:u                                               ( +-  0.22% )
+
+         0.0020058 +- 0.0000248 seconds time elapsed  ( +-  1.24% )
+
+
+ Performance counter stats for './matmul 32 16 2 -1' (20 runs):
+
+           571,666      ref-cycles:u                                                  ( +-  1.19% )
+           365,621      L1-dcache-loads                                               ( +-  0.00% )
+             9,698      L1-dcache-load-misses     #    2.65% of all L1-dcache hits    ( +-  0.25% )
+            23,101      l2_rqsts.references:u                                         ( +-  0.27% )
+             8,415      l2_rqsts.miss:u                                               ( +-  0.19% )
+
+         0.0020028 +- 0.0000329 seconds time elapsed  ( +-  1.64% )
+
+
+ Performance counter stats for './matmul 32 8 4 -1' (20 runs):
+
+           539,477      ref-cycles:u                                                  ( +-  0.61% )
+           308,705      L1-dcache-loads                                               ( +-  0.00% )
+             9,625      L1-dcache-load-misses     #    3.12% of all L1-dcache hits    ( +-  0.19% )
+            23,140      l2_rqsts.references:u                                         ( +-  0.31% )
+             8,469      l2_rqsts.miss:u                                               ( +-  0.20% )
+
+         0.0019535 +- 0.0000166 seconds time elapsed  ( +-  0.85% )
+
+
+ Performance counter stats for './matmul 32 8 2 -1' (20 runs):
+
+           570,986      ref-cycles:u                                                  ( +-  1.15% )
+           371,425      L1-dcache-loads                                               ( +-  0.00% )
+             9,631      L1-dcache-load-misses     #    2.59% of all L1-dcache hits    ( +-  0.21% )
+            23,073      l2_rqsts.references:u                                         ( +-  0.32% )
+             8,448      l2_rqsts.miss:u                                               ( +-  0.29% )
+
+         0.0019555 +- 0.0000225 seconds time elapsed  ( +-  1.15% )
+
+
+ Performance counter stats for './matmul 32 4 2 -1' (20 runs):
+
+           575,736      ref-cycles:u                                                  ( +-  1.39% )
+           388,461      L1-dcache-loads                                               ( +-  0.00% )
+             9,602      L1-dcache-load-misses     #    2.47% of all L1-dcache hits    ( +-  0.19% )
+            23,197      l2_rqsts.references:u                                         ( +-  0.24% )
+             8,439      l2_rqsts.miss:u                                               ( +-  0.25% )
+
+         0.0019713 +- 0.0000232 seconds time elapsed  ( +-  1.18% )
+
+
+ Performance counter stats for './matmul 32 16 8 4' (20 runs):
+
+           544,517      ref-cycles:u                                                  ( +-  0.58% )
+           260,268      L1-dcache-loads                                               ( +-  0.00% )
+             9,658      L1-dcache-load-misses     #    3.71% of all L1-dcache hits    ( +-  0.18% )
+            23,195      l2_rqsts.references:u                                         ( +-  0.20% )
+             8,452      l2_rqsts.miss:u                                               ( +-  0.23% )
+
+          0.002904 +- 0.000892 seconds time elapsed  ( +- 30.72% )
+
+
+ Performance counter stats for './matmul 32 16 8 2' (20 runs):
+
+           584,766      ref-cycles:u                                                  ( +-  1.43% )
+           309,035      L1-dcache-loads                                               ( +-  0.00% )
+             9,674      L1-dcache-load-misses     #    3.13% of all L1-dcache hits    ( +-  0.20% )
+            23,218      l2_rqsts.references:u                                         ( +-  0.34% )
+             8,432      l2_rqsts.miss:u                                               ( +-  0.30% )
+
+         0.0020543 +- 0.0000279 seconds time elapsed  ( +-  1.36% )
+
+
+ Performance counter stats for './matmul 32 16 4 2' (20 runs):
+
+           578,075      ref-cycles:u                                                  ( +-  0.48% )
+           333,499      L1-dcache-loads                                               ( +-  0.00% )
+             9,657      L1-dcache-load-misses     #    2.90% of all L1-dcache hits    ( +-  0.25% )
+            23,183      l2_rqsts.references:u                                         ( +-  0.32% )
+             8,466      l2_rqsts.miss:u                                               ( +-  0.23% )
+
+         0.0019946 +- 0.0000225 seconds time elapsed  ( +-  1.13% )
+
