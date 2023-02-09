@@ -1,10 +1,10 @@
 #include <stdlib.h>
 
 // define the matrix dimensions A is MxP, B is PxN, and C is MxN
-#define M 32
-#define N 32
-#define P 32
-#define Dim 32
+#define M 512 
+#define N 512
+#define P 512
+#define Dim 512
 #define B1 16
 
 // calculate C = AxB
@@ -14,9 +14,10 @@ void matmul(float **A, float **B, float **C) {
 				int   j;
 				int   k;
 
-/*				for (i=0; i<M; i++) {
+				for (i=0; i<M; i++) {
 								// for each row of C
-								for (j=0; j<N; j++) {
+								//
+								/*for (j=0; j<N; j++) {
 												// for each column of C
 												sum = 0.0f; // temporary value
 												for (k=0; k<P; k++) {
@@ -24,10 +25,19 @@ void matmul(float **A, float **B, float **C) {
 																sum += A[i][k]*B[k][j];
 												}
 												C[i][j] = sum;
+								}*/
+								for (k=0; k<P; j++) {
+												// for each column of C
+												sum = 0.0f; // temporary value
+												for (j=0; j<N; j++) {
+																// dot product of row from A and column from B
+																sum += A[i][j]*B[j][k];
+												}
+												C[i][k] = sum;
 								}
-				}*/
+				}
 
-				for(int i=0; i<Dim; i=i+B1) {
+				/*for(int i=0; i<Dim; i=i+B1) {
 								for(int j=0; j<Dim; j=j+B1) {
 												for(int k=0; k<Dim; k=k+B1) {
 																for(int i_1=i; i_1<i+B1; i_1++) {
@@ -40,7 +50,7 @@ void matmul(float **A, float **B, float **C) {
 																}
 												}
 								}
-				}
+				}*/
 }
 
 // function to allocate a matrix on the heap

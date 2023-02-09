@@ -1,0 +1,29 @@
+
+ Performance counter stats for './matmul_loopint 4096 2048 64 16':
+
+    57,436,142,652      ref-cycles:u                                                
+   150,874,497,872      L1-dcache-loads                                             
+     1,617,184,674      L1-dcache-load-misses     #    1.07% of all L1-dcache hits  
+     1,790,447,518      l2_rqsts.references:u                                       
+        50,504,747      l2_rqsts.miss:u                                             
+
+      27.608100826 seconds time elapsed
+
+      27.456143000 seconds user
+       0.085800000 seconds sys
+
+
+
+ Performance counter stats for './matmul_loopint 4096 2048 64 16':
+
+            93,665      LLC-load-misses           #    7.06% of all LL-cache hits   
+         1,327,571      LLC-loads                                                   
+        48,509,395      cache-references:u                                          
+         4,917,038      cache-misses:u            #   10.136 % of all cache refs    
+
+      27.574829698 seconds time elapsed
+
+      27.407984000 seconds user
+       0.101762000 seconds sys
+
+

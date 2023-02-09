@@ -1,37 +1,23 @@
 #!/bin/bash
 
 #SBATCH -J myjob           # Job name
-#SBATCH -o %j_o4096       # Name of stdout output file
-#SBATCH -e my_all_32_combo      # Name of stdout output file
-#SBATCH -p skx-dev      # Queue (partition) name
+#SBATCH -e real_variance_4096 # Name of stdout output file
+#SBATCH -p skx-normal      # Queue (partition) name
 #SBATCH -N 1               # Total # of nodes (must be 1 for serial)
 #SBATCH -n 1               # Total # of mpi tasks (should be 1 for serial)
-#SBATCH -t 01:00:00        # Run time (hh:mm:ss)
+#SBATCH -t 02:00:00        # Run time (hh:mm:ss)
 #SBATCH -A CCR21003      # Allocation name (req'd if you have more than 1)
 
-
 gcc matmul.c -o matmul -O3
+#gcc matmul_loopint.c -o matmul_loopint -O3
+#gcc matmul_trans.c -o matmul_trans -O3
 
-perf stat -e ref-cycles:u,L1-dcache-loads:u,L1-dcache-load-misses:u,l2_rqsts.references:u,l2_rqsts.miss:u --repeat 20 ./matmul 32 -1 -1 -1
-perf stat -e ref-cycles:u,L1-dcache-loads:u,L1-dcache-load-misses:u,l2_rqsts.references:u,l2_rqsts.miss:u --repeat 20 ./matmul 32 16 -1 -1
-perf stat -e ref-cycles:u,L1-dcache-loads:u,L1-dcache-load-misses:u,l2_rqsts.references:u,l2_rqsts.miss:u --repeat 20 ./matmul 32 8 -1 -1
-perf stat -e ref-cycles:u,L1-dcache-loads:u,L1-dcache-load-misses:u,l2_rqsts.references:u,l2_rqsts.miss:u --repeat 20 ./matmul 32 4 -1 -1
-perf stat -e ref-cycles:u,L1-dcache-loads:u,L1-dcache-load-misses:u,l2_rqsts.references:u,l2_rqsts.miss:u --repeat 20 ./matmul 32 2 -1 -1
-perf stat -e ref-cycles:u,L1-dcache-loads:u,L1-dcache-load-misses:u,l2_rqsts.references:u,l2_rqsts.miss:u --repeat 20 ./matmul 32 16 8 -1
-perf stat -e ref-cycles:u,L1-dcache-loads:u,L1-dcache-load-misses:u,l2_rqsts.references:u,l2_rqsts.miss:u --repeat 20 ./matmul 32 16 4 -1
-perf stat -e ref-cycles:u,L1-dcache-loads:u,L1-dcache-load-misses:u,l2_rqsts.references:u,l2_rqsts.miss:u --repeat 20 ./matmul 32 16 2 -1
-perf stat -e ref-cycles:u,L1-dcache-loads:u,L1-dcache-load-misses:u,l2_rqsts.references:u,l2_rqsts.miss:u --repeat 20 ./matmul 32 8 4 -1
-perf stat -e ref-cycles:u,L1-dcache-loads:u,L1-dcache-load-misses:u,l2_rqsts.references:u,l2_rqsts.miss:u --repeat 20 ./matmul 32 8 2 -1
-perf stat -e ref-cycles:u,L1-dcache-loads:u,L1-dcache-load-misses:u,l2_rqsts.references:u,l2_rqsts.miss:u --repeat 20 ./matmul 32 4 2 -1
-perf stat -e ref-cycles:u,L1-dcache-loads:u,L1-dcache-load-misses:u,l2_rqsts.references:u,l2_rqsts.miss:u --repeat 20 ./matmul 32 16 8 4
-perf stat -e ref-cycles:u,L1-dcache-loads:u,L1-dcache-load-misses:u,l2_rqsts.references:u,l2_rqsts.miss:u --repeat 20 ./matmul 32 16 8 2
-perf stat -e ref-cycles:u,L1-dcache-loads:u,L1-dcache-load-misses:u,l2_rqsts.references:u,l2_rqsts.miss:u --repeat 20 ./matmul 32 16 4 2
+#perf stat -e LLC-load-misses:u,LLC-loads:u,cache-references:u,cache-misses:u --repeat 20 ./matmul 32 -1 -1 -1 
+#perf stat -e LLC-load-misses:u,LLC-loads:u,cache-references:u,cache-misses:u --repeat 20 ./matmul 512 -1 -1 -1 
+#perf stat -e LLC-load-misses:u,LLC-loads:u,cache-references:u,cache-misses:u --repeat 20 ./matmul 4096 -1 -1 -1 
+#perf stat -e ref-cycles:u,L1-dcache-loads:u,L1-dcache-load-misses:u,l2_rqsts.references:u,l2_rqsts.miss:u --repeat 20 ./matmul 32 -1 -1 -1  
+perf stat -e ref-cycles:u,L1-dcache-loads:u,L1-dcache-load-misses:u,l2_rqsts.references:u,l2_rqsts.miss:u --repeat 20 ./matmul 4096 -1 -1 -1  
 
-python3 extract_info.py my_all_32_combo ref-cycles my_32_ref-cycles
-python3 extract_info.py my_all_32_combo dcache-loads my_32_dcache-loads
-python3 extract_info.py my_all_32_combo dcache-load-misses my_32_dcache-load-misses
-python3 extract_info.py my_all_32_combo l2_rqsts.references my_32_rqsts.references
-python3 extract_info.py my_all_32_combo l2_rqsts.miss my_32_l2_rqsts.miss
 
 # ref-cycles:u
 # L1-dcache-loads          
@@ -39,15 +25,17 @@ python3 extract_info.py my_all_32_combo l2_rqsts.miss my_32_l2_rqsts.miss
 # l2_rqsts.references
 # l2_rqsts.miss
 
-# cycles:u
 # LLC-load-misses          
 # LLC-loads                
 # cache-references:u
 # cache-misses:u
 
  
+#perf stat -e ref-cycles:u,L1-dcache-loads:u,L1-dcache-load-misses:u,l2_rqsts.references:u,l2_rqsts.miss:u --repeat 20 ./matmul 512 -1 -1 -1  
+#perf stat -e LLC-load-misses:u,LLC-loads:u,cache-references:u,cache-misses:u --repeat 20 ./matmul 512 -1 -1 -1  
+#perf stat -e ref-cycles:u,instructions:u,branches:u,branch-misses:u --repeat 20 --repeat 20 ./matmul 512 256 -2 -2 
 #IGNORE
-# instructions:u
+# ref-cycles:u,instructions:u
 # L1-icache-load-misses    
 # L1-dcache-stores         
 # fp_arith_inst_retired.scalar_single

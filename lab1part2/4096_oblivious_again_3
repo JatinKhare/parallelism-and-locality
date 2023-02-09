@@ -1,0 +1,41 @@
+
+ Performance counter stats for './matmul 4096 512 -2 -2' (20 runs):
+
+         1,134,093      LLC-load-misses           #    0.37% of all LL-cache hits     ( +-  1.18% )
+       306,282,507      LLC-loads                                                     ( +-  0.73% )
+       409,796,080      cache-references:u                                            ( +-  0.82% )
+        11,603,867      cache-misses:u            #    2.832 % of all cache refs      ( +-  1.92% )
+
+            77.544 +- 0.699 seconds time elapsed  ( +-  0.90% )
+
+./matmul: Segmentation fault
+./matmul: Segmentation fault
+./matmul: Segmentation fault
+./matmul: Segmentation fault
+./matmul: Segmentation fault
+./matmul: Segmentation fault
+./matmul: Segmentation fault
+./matmul: Segmentation fault
+./matmul: Segmentation fault
+./matmul: Segmentation fault
+./matmul: Segmentation fault
+./matmul: Segmentation fault
+./matmul: Segmentation fault
+./matmul: Segmentation fault
+./matmul: Segmentation fault
+./matmul: Segmentation fault
+./matmul: Segmentation fault
+./matmul: Segmentation fault
+./matmul: Segmentation fault
+./matmul: Segmentation fault
+
+ Performance counter stats for './matmul 4096 1024-2 -2' (20 runs):
+
+               116      LLC-load-misses           #   11.31% of all LL-cache hits     ( +- 40.68% )
+             1,026      LLC-loads                                                     ( +-  0.86% )
+             7,824      cache-references:u                                            ( +-  0.27% )
+               729      cache-misses:u            #    9.314 % of all cache refs      ( +- 43.06% )
+
+           0.00813 +- 0.00139 seconds time elapsed  ( +- 17.08% )
+
+slurmstepd: error: *** JOB 10908182 ON c506-083 CANCELLED AT 2023-02-09T00:53:35 DUE TO TIME LIMIT ***

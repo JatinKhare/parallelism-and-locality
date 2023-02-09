@@ -1,0 +1,12 @@
+
+ Performance counter stats for './matmul 4096 2048 -2 -2' (20 runs):
+
+ 1,067,721,922,991      cycles:u                                                      ( +-  0.01% )
+         1,082,221      LLC-load-misses           #    0.10% of all LL-cache hits     ( +-  1.09% )
+     1,055,030,444      LLC-loads                                                     ( +-  0.02% )
+     1,074,168,895      cache-references:u                                            ( +-  0.01% )
+         4,850,087      cache-misses:u            #    0.452 % of all cache refs      ( +-  1.46% )
+
+            300.78 +- 2.40 seconds time elapsed  ( +-  0.80% )
+
+slurmstepd: error: *** JOB 10893657 ON c480-074 CANCELLED AT 2023-02-05T14:41:51 DUE TO TIME LIMIT ***

@@ -1,0 +1,44 @@
+
+ Performance counter stats for './matmul 4096 128 32 8' (20 runs):
+
+   232,091,164,845      cycles:u                                                      ( +-  0.00% )
+           248,925      LLC-load-misses           #    3.69% of all LL-cache hits     ( +-  3.12% )
+         6,742,364      LLC-loads                                                     ( +-  2.59% )
+       143,735,952      cache-references:u                                            ( +-  4.08% )
+         4,505,969      cache-misses:u            #    3.135 % of all cache refs      ( +-  3.17% )
+
+            64.697 +- 0.757 seconds time elapsed  ( +-  1.17% )
+
+
+ Performance counter stats for './matmul 4096 64 32 8' (20 runs):
+
+   232,308,610,733      cycles:u                                                      ( +-  0.01% )
+           168,189      LLC-load-misses           #    1.49% of all LL-cache hits     ( +-  2.19% )
+        11,259,038      LLC-loads                                                     ( +-  0.63% )
+       176,959,763      cache-references:u                                            ( +-  0.80% )
+         3,588,818      cache-misses:u            #    2.028 % of all cache refs      ( +-  0.97% )
+
+            65.107 +- 0.980 seconds time elapsed  ( +-  1.51% )
+
+
+ Performance counter stats for './matmul 4096 2048 64 8' (20 runs):
+
+   231,604,290,781      cycles:u                                                      ( +-  0.01% )
+           202,883      LLC-load-misses           #    1.78% of all LL-cache hits     ( +-  1.85% )
+        11,429,520      LLC-loads                                                     ( +-  1.19% )
+       106,400,491      cache-references:u                                            ( +-  2.25% )
+         6,677,542      cache-misses:u            #    6.276 % of all cache refs      ( +-  2.44% )
+
+            64.545 +- 0.749 seconds time elapsed  ( +-  1.16% )
+
+
+ Performance counter stats for './matmul 4096 1024 64 8' (20 runs):
+
+   231,464,281,341      cycles:u                                                      ( +-  0.00% )
+           293,910      LLC-load-misses           #    3.26% of all LL-cache hits     ( +-  3.25% )
+         9,016,797      LLC-loads                                                     ( +-  1.41% )
+       100,533,181      cache-references:u                                            ( +-  1.90% )
+         6,823,420      cache-misses:u            #    6.787 % of all cache refs      ( +-  2.54% )
+
+             65.18 +- 1.05 seconds time elapsed  ( +-  1.61% )
+

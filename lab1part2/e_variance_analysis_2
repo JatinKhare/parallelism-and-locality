@@ -1,0 +1,20 @@
+
+ Performance counter stats for './matmul 2048 -1 -1 -1' (20 runs):
+
+    73,136,140,169      ref-cycles:u                                                  ( +-  0.91% )
+     7,871,462,951      L1-dcache-load-misses                                         ( +-  0.07% )
+       270,237,312      l2_rqsts.miss:u                                               ( +-  0.01% )
+            71,792      LLC-load-misses                                               ( +-  7.89% )
+
+            35.050 +- 0.319 seconds time elapsed  ( +-  0.91% )
+
+
+ Performance counter stats for './matmul 4096 -1 -1 -1' (20 runs):
+
+   649,662,524,582      ref-cycles:u                                                  ( +-  0.89% )
+    62,204,523,399      L1-dcache-load-misses                                         ( +-  0.33% )
+     1,099,505,275      l2_rqsts.miss:u                                               ( +-  0.22% )
+         5,559,421      LLC-load-misses                                               ( +-  4.94% )
+
+            311.05 +- 2.78 seconds time elapsed  ( +-  0.89% )
+

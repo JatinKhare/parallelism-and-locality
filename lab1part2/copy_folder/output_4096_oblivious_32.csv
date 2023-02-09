@@ -1,0 +1,3 @@
+,0,0,0,0,0,0,0,0,0
+0,N,B1,B2,B3,ref-cycles,dcache-loads,dcache-load-misses,l2_rqsts.references,l2_rqsts.miss
+1,4096,32,-2,-2,"124,990,652,417","210,634,296,996","1,448,015,866","1,570,275,570","93,904,650"

@@ -1,0 +1,11 @@
+
+ Performance counter stats for './matmul 4096 32 -2 -2' (20 runs):
+
+   124,990,652,417      ref-cycles:u                                                  ( +-  2.10% )
+   210,634,296,996      L1-dcache-loads                                               ( +-  0.00% )
+     1,448,015,866      L1-dcache-load-misses     #    0.69% of all L1-dcache hits    ( +-  0.63% )
+     1,570,275,570      l2_rqsts.references:u                                         ( +-  0.85% )
+        93,904,650      l2_rqsts.miss:u                                               ( +-  4.81% )
+
+             59.92 +- 1.26 seconds time elapsed  ( +-  2.11% )
+

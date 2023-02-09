@@ -1,0 +1,17 @@
+matmul.c: In function ‘matmul’:
+matmul.c:50:14: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+              printf("Original\n");
+              ^~~~~~
+matmul.c:50:14: warning: incompatible implicit declaration of built-in function ‘printf’
+matmul.c:50:14: note: include ‘<stdio.h>’ or provide a declaration of ‘printf’
+
+ Performance counter stats for './matmul 4096 128 32 -1' (5 runs):
+
+   137,650,167,026      ref-cycles:u                                                  ( +-  0.46% )
+   285,759,035,309      L1-dcache-loads                                               ( +-  0.00% )
+     1,327,245,675      L1-dcache-load-misses     #    0.46% of all L1-dcache hits    ( +-  3.37% )
+     1,429,093,507      l2_rqsts.references:u                                         ( +-  4.74% )
+        83,489,883      l2_rqsts.miss:u                                               ( +- 26.95% )
+
+            65.947 +- 0.307 seconds time elapsed  ( +-  0.47% )
+

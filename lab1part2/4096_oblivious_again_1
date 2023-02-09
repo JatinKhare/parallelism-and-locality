@@ -1,0 +1,40 @@
+
+ Performance counter stats for './matmul 4096 32 -1 -1' (20 runs):
+
+           219,916      LLC-load-misses           #    0.56% of all LL-cache hits     ( +-  6.16% )
+        39,429,548      LLC-loads                                                     ( +-  0.73% )
+       378,335,609      cache-references:u                                            ( +-  0.39% )
+         5,136,040      cache-misses:u            #    1.358 % of all cache refs      ( +-  3.38% )
+
+            66.615 +- 0.598 seconds time elapsed  ( +-  0.90% )
+
+
+ Performance counter stats for './matmul 4096 64 -1 -1' (20 runs):
+
+           541,672      LLC-load-misses           #    2.32% of all LL-cache hits     ( +-  3.65% )
+        23,370,545      LLC-loads                                                     ( +-  0.53% )
+       146,326,792      cache-references:u                                            ( +-  0.82% )
+         3,292,303      cache-misses:u            #    2.250 % of all cache refs      ( +-  1.87% )
+
+             70.48 +- 1.13 seconds time elapsed  ( +-  1.60% )
+
+
+ Performance counter stats for './matmul 4096 128 -1 -1' (20 runs):
+
+           760,521      LLC-load-misses           #    5.19% of all LL-cache hits     ( +-  1.70% )
+        14,660,570      LLC-loads                                                     ( +-  0.60% )
+        87,635,246      cache-references:u                                            ( +-  0.87% )
+         4,656,146      cache-misses:u            #    5.313 % of all cache refs      ( +-  1.49% )
+
+             76.61 +- 1.43 seconds time elapsed  ( +-  1.87% )
+
+
+ Performance counter stats for './matmul 4096 256 -1 -1' (20 runs):
+
+         1,182,088      LLC-load-misses           #   18.89% of all LL-cache hits     ( +-  1.06% )
+         6,259,179      LLC-loads                                                     ( +-  0.32% )
+        53,273,570      cache-references:u                                            ( +-  0.94% )
+         5,183,063      cache-misses:u            #    9.729 % of all cache refs      ( +-  1.03% )
+
+             76.41 +- 1.03 seconds time elapsed  ( +-  1.35% )
+

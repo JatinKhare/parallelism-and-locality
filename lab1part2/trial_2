@@ -1,0 +1,10 @@
+matmul-aware.c: In function ‘matmul’:
+matmul-aware.c:23:2: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+  printf("original = %d, level1 = %d, level2 = %d, level3 = %d\n",original, level1, level2, level3);
+  ^~~~~~
+matmul-aware.c:23:2: warning: incompatible implicit declaration of built-in function ‘printf’
+matmul-aware.c:23:2: note: include ‘<stdio.h>’ or provide a declaration of ‘printf’
+matmul-aware.c:125:14: warning: implicit declaration of function ‘recur’ [-Wimplicit-function-declaration]
+              recur(A, B, C, 0, Dim, 0, Dim, 0, Dim, B1);
+              ^~~~~
+slurmstepd: error: *** JOB 10882218 ON c481-022 CANCELLED AT 2023-02-02T19:11:11 ***

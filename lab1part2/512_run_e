@@ -1,0 +1,21 @@
+
+ Performance counter stats for './matmul 32 -1 -1 -1' (20 runs):
+
+           524,941      ref-cycles:u                                                  ( +-  0.42% )
+           235,174      L1-dcache-loads                                               ( +-  0.00% )
+             9,644      L1-dcache-load-misses     #    4.10% of all L1-dcache hits    ( +-  0.24% )
+            23,128      l2_rqsts.references:u                                         ( +-  0.25% )
+             8,409      l2_rqsts.miss:u                                               ( +-  0.21% )
+
+         0.0021412 +- 0.0000316 seconds time elapsed  ( +-  1.48% )
+
+
+ Performance counter stats for './matmul 32 -1 -1 -1' (20 runs):
+
+                27      LLC-load-misses           #    2.52% of all LL-cache hits     ( +- 36.44% )
+             1,057      LLC-loads                                                     ( +-  0.85% )
+             8,238      cache-references:u                                            ( +-  0.24% )
+               209      cache-misses:u            #    2.534 % of all cache refs      ( +- 45.35% )
+
+         0.0022468 +- 0.0000401 seconds time elapsed  ( +-  1.78% )
+

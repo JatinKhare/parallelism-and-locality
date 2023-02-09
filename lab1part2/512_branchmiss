@@ -1,0 +1,110 @@
+
+ Performance counter stats for './matmul 512 -1 -1 -1' (20 runs):
+
+       317,699,273      ref-cycles:u                                                  ( +-  0.21% )
+       941,947,410      instructions:u                                                ( +-  0.00% )
+       134,661,110      branches:u                                                    ( +-  0.00% )
+           271,257      branch-misses:u           #    0.20% of all branches          ( +-  0.01% )
+
+          0.155485 +- 0.000383 seconds time elapsed  ( +-  0.25% )
+
+
+ Performance counter stats for './matmul 512 2 -1 -1' (20 runs):
+
+       425,444,687      ref-cycles:u                                                  ( +-  0.14% )
+     2,451,239,745      instructions:u                                                ( +-  0.00% )
+       335,791,143      branches:u                                                    ( +-  0.00% )
+            79,083      branch-misses:u           #    0.02% of all branches          ( +-  1.37% )
+
+          0.206924 +- 0.000286 seconds time elapsed  ( +-  0.14% )
+
+
+ Performance counter stats for './matmul 512 2 -2 -2' (20 runs):
+
+       541,162,226      ref-cycles:u                                                  ( +-  0.03% )
+     3,720,594,885      instructions:u                                                ( +-  0.00% )
+       484,323,343      branches:u                                                    ( +-  0.00% )
+           309,884      branch-misses:u           #    0.06% of all branches          ( +-  0.02% )
+
+          0.262163 +- 0.000101 seconds time elapsed  ( +-  0.04% )
+
+
+ Performance counter stats for './matmul 512 8 -1 -1' (20 runs):
+
+       273,859,051      ref-cycles:u                                                  ( +-  0.43% )
+     1,343,081,528      instructions:u                                                ( +-  0.00% )
+       170,578,527      branches:u                                                    ( +-  0.00% )
+           278,915      branch-misses:u           #    0.16% of all branches          ( +-  0.10% )
+
+          0.134393 +- 0.000591 seconds time elapsed  ( +-  0.44% )
+
+
+ Performance counter stats for './matmul 512 8 -2 -2' (20 runs):
+
+       193,781,452      ref-cycles:u                                                  ( +-  1.05% )
+     1,274,791,200      instructions:u                                                ( +-  0.00% )
+       158,740,329      branches:u                                                    ( +-  0.00% )
+           313,656      branch-misses:u           #    0.20% of all branches          ( +-  0.43% )
+
+          0.096007 +- 0.000972 seconds time elapsed  ( +-  1.01% )
+
+
+ Performance counter stats for './matmul 512 32 -1 -1' (20 runs):
+
+       246,169,552      ref-cycles:u                                                  ( +-  0.79% )
+     1,138,456,751      instructions:u                                                ( +-  0.00% )
+       142,926,593      branches:u                                                    ( +-  0.00% )
+           144,423      branch-misses:u           #    0.10% of all branches          ( +-  0.02% )
+
+          0.120995 +- 0.000948 seconds time elapsed  ( +-  0.78% )
+
+
+ Performance counter stats for './matmul 512 32 -2 -2' (20 runs):
+
+       222,513,110      ref-cycles:u                                                  ( +-  0.02% )
+     1,114,187,120      instructions:u                                                ( +-  0.00% )
+       138,907,532      branches:u                                                    ( +-  0.00% )
+           146,904      branch-misses:u           #    0.11% of all branches          ( +-  0.08% )
+
+         0.1097416 +- 0.0000597 seconds time elapsed  ( +-  0.05% )
+
+
+ Performance counter stats for './matmul 512 128 -1 -1' (20 runs):
+
+       312,422,750      ref-cycles:u                                                  ( +-  1.11% )
+     1,090,375,030      instructions:u                                                ( +-  0.00% )
+       136,503,976      branches:u                                                    ( +-  0.00% )
+         1,065,740      branch-misses:u           #    0.78% of all branches          ( +-  0.02% )
+
+           0.15282 +- 0.00170 seconds time elapsed  ( +-  1.11% )
+
+
+ Performance counter stats for './matmul 512 128 -2 -2' (20 runs):
+
+       289,141,234      ref-cycles:u                                                  ( +-  0.76% )
+     1,084,121,894      instructions:u                                                ( +-  0.00% )
+       135,464,241      branches:u                                                    ( +-  0.00% )
+         1,065,957      branch-misses:u           #    0.79% of all branches          ( +-  0.04% )
+
+           0.14174 +- 0.00109 seconds time elapsed  ( +-  0.77% )
+
+
+ Performance counter stats for './matmul 512 256 -1 -1' (20 runs):
+
+       310,927,512      ref-cycles:u                                                  ( +-  0.72% )
+     1,082,467,035      instructions:u                                                ( +-  0.00% )
+       135,449,117      branches:u                                                    ( +-  0.00% )
+           534,975      branch-misses:u           #    0.39% of all branches          ( +-  0.00% )
+
+           0.15222 +- 0.00107 seconds time elapsed  ( +-  0.71% )
+
+
+ Performance counter stats for './matmul 512 256 -2 -2' (20 runs):
+
+       297,554,888      ref-cycles:u                                                  ( +-  0.04% )
+     1,079,330,119      instructions:u                                                ( +-  0.00% )
+       134,926,943      branches:u                                                    ( +-  0.00% )
+           535,009      branch-misses:u           #    0.40% of all branches          ( +-  0.00% )
+
+         0.1455067 +- 0.0000776 seconds time elapsed  ( +-  0.05% )
+

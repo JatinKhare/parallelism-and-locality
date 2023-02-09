@@ -1,0 +1,29 @@
+
+ Performance counter stats for './matmul 4096 2048 64 16':
+
+   105,905,102,940      ref-cycles:u                                                
+   215,447,638,119      L1-dcache-loads                                             
+     1,166,173,751      L1-dcache-load-misses     #    0.54% of all L1-dcache hits  
+     1,257,155,245      l2_rqsts.references:u                                       
+        77,076,038      l2_rqsts.miss:u                                             
+
+      50.791983048 seconds time elapsed
+
+      50.548081000 seconds user
+       0.122711000 seconds sys
+
+
+
+ Performance counter stats for './matmul 4096 2048 64 16':
+
+           207,232      LLC-load-misses           #    1.67% of all LL-cache hits   
+        12,429,105      LLC-loads                                                   
+       106,822,790      cache-references:u                                          
+         6,214,039      cache-misses:u            #    5.817 % of all cache refs    
+
+      49.119674507 seconds time elapsed
+
+      48.911298000 seconds user
+       0.092780000 seconds sys
+
+

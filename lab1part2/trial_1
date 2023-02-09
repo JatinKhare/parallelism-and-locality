@@ -1,0 +1,6 @@
+matmul.c: In function ‘matmul’:
+matmul.c:50:14: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+              printf("Original\n");
+              ^~~~~~
+matmul.c:50:14: warning: incompatible implicit declaration of built-in function ‘printf’
+matmul.c:50:14: note: include ‘<stdio.h>’ or provide a declaration of ‘printf’

@@ -52,13 +52,22 @@ void matmul(float **A, float **B, float **C) {
 																 // for each row of C
 																 for (j=0; j<Dim; j++) {
 																				 // for each column of C
+																				 for (k=0; k<Dim; k++) {
+																								 //printf("i = %d, j = %d, k = %d\n", i, j, k);
+																								 C[i][j] += A[i][k]*B[k][j];
+																								 // dot product of row from A and column from B
+																				 }
+																 }
+																 /*for (j=0; j<Dim; j++) {
+																				 // for each column of C
 																				 sum = 0.0f; // temporary value
 																				 for (k=0; k<Dim; k++) {
+																								 //printf("i = %d, j = %d, k = %d\n", i, j, k);
 																								 sum += A[i][k]*B[k][j];
 																								 // dot product of row from A and column from B
 																				 }
 																				 C[i][j] = sum;
-																 }
+																 }*/
 												 }
 												 break;
 								 }
@@ -110,24 +119,24 @@ void matmul(float **A, float **B, float **C) {
 								 }
 					case 8:{
 				 for(int i=0; i<Dim; i=i+B1) {
-								 for(int j=0; j<Dim; j=j+B1) {
-												 for(int k=0; k<Dim; k=k+B1) {
+											for(int j=0; j<Dim; j=j+B1) {
+									for(int k=0; k<Dim; k=k+B1) {
 
 																 for(int i_1=i; i_1<i+B1; i_1=i_1+B2) {
-																				 for(int j_1=j; j_1<j+B1; j_1=j_1+B2 ) {
-																								 for(int k_1=k; k_1<k+B1; k_1=k_1+B2) {
+																								for(int j_1=j; j_1<j+B1; j_1=j_1+B2 ) {
+																						for(int k_1=k; k_1<k+B1; k_1=k_1+B2) {
 
 																												 for(int i_2=i_1; i_2<i_1+B2; i_2=i_2+B3) {
-																																 for(int j_2=j_1; j_2<j_1+B2; j_2=j_2+B3 ) {
-																																				 for(int k_2=k_1; k_2<k_1+B2; k_2=k_2+B3) {
+																																			for(int j_2=j_1; j_2<j_1+B2; j_2=j_2+B3 ) {
+																																	for(int k_2=k_1; k_2<k_1+B2; k_2=k_2+B3) {
 
 																																								 for(int i_3=i_2; i_3<i_2+B3; i_3++) {
-																																												 for(int j_3=j_2; j_3<j_2+B3; j_3++) {
-																																																 sum = 0.0f;
-																																																 for(int k_3=k_2; k_3<k_2+B3; k_3++) {
-																																								 sum += + (A[i_3][k_3] * B[k_3][j_3]);
+																																															for(int j_3=j_2; j_3<j_2+B3; j_3++) {
+																																																 //sum = 0.0f;
+																																													for(int k_3=k_2; k_3<k_2+B3; k_3++) {
+																																																				 C[i_3][j_3] = C[i_3][j_3] + (A[i_3][k_3] * B[k_3][j_3]);
 																																																 }
-																																																 C[i_3][j_3] = sum;
+																																																 //C[i_3][j_3] = sum;
 																																												 }
 																																								 }
 																																				 }
@@ -139,7 +148,7 @@ void matmul(float **A, float **B, float **C) {
 												 }
 								 }
 				 }
-												 //printf("L3\n");
+				 //printf("L3\n");
 				 break;
 								 }
 					case 16:

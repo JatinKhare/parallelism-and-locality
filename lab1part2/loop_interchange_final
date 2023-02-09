@@ -1,0 +1,126 @@
+
+ Performance counter stats for './matmul 32 8 -1 -1' (20 runs):
+
+           536,852      ref-cycles:u                                                  ( +-  0.81% )
+           289,306      L1-dcache-loads                                               ( +-  0.00% )
+             9,726      L1-dcache-load-misses     #    3.36% of all L1-dcache hits    ( +-  0.23% )
+            23,158      l2_rqsts.references:u                                         ( +-  0.25% )
+             8,440      l2_rqsts.miss:u                                               ( +-  0.20% )
+
+         0.0020290 +- 0.0000208 seconds time elapsed  ( +-  1.03% )
+
+
+ Performance counter stats for './matmul_loopint 32 8 -1 -1' (20 runs):
+
+           531,111      ref-cycles:u                                                  ( +-  1.59% )
+           246,895      L1-dcache-loads                                               ( +-  0.00% )
+             9,781      L1-dcache-load-misses     #    3.96% of all L1-dcache hits    ( +-  0.16% )
+            23,378      l2_rqsts.references:u                                         ( +-  0.26% )
+             8,531      l2_rqsts.miss:u                                               ( +-  0.22% )
+
+         0.0021103 +- 0.0000287 seconds time elapsed  ( +-  1.36% )
+
+
+ Performance counter stats for './matmul_loopint 32 8 -1 -1' (20 runs):
+
+                60      LLC-load-misses           #    5.66% of all LL-cache hits     ( +- 32.38% )
+             1,057      LLC-loads                                                     ( +-  0.43% )
+             8,383      cache-references:u                                            ( +-  0.17% )
+               327      cache-misses:u            #    3.901 % of all cache refs      ( +- 32.08% )
+
+         0.0020888 +- 0.0000311 seconds time elapsed  ( +-  1.49% )
+
+
+ Performance counter stats for './matmul 32 8 -1 -1' (20 runs):
+
+                33      LLC-load-misses           #    3.14% of all LL-cache hits     ( +- 24.37% )
+             1,064      LLC-loads                                                     ( +-  0.40% )
+             8,278      cache-references:u                                            ( +-  0.24% )
+               182      cache-misses:u            #    2.196 % of all cache refs      ( +- 23.46% )
+
+         0.0020725 +- 0.0000234 seconds time elapsed  ( +-  1.13% )
+
+
+ Performance counter stats for './matmul_loopint 512 128 64 16' (20 runs):
+
+       106,502,201      ref-cycles:u                                                  ( +-  0.11% )
+       294,862,802      L1-dcache-loads                                               ( +-  0.00% )
+         2,698,932      L1-dcache-load-misses     #    0.92% of all L1-dcache hits    ( +-  0.15% )
+         3,291,737      l2_rqsts.references:u                                         ( +-  0.21% )
+           153,991      l2_rqsts.miss:u                                               ( +-  0.69% )
+
+         0.0542998 +- 0.0000636 seconds time elapsed  ( +-  0.12% )
+
+
+ Performance counter stats for './matmul 512 128 64 16' (20 runs):
+
+       197,266,503      ref-cycles:u                                                  ( +-  0.76% )
+       420,981,664      L1-dcache-loads                                               ( +-  0.00% )
+         1,886,855      L1-dcache-load-misses     #    0.45% of all L1-dcache hits    ( +-  0.12% )
+         2,381,774      l2_rqsts.references:u                                         ( +-  0.17% )
+           218,814      l2_rqsts.miss:u                                               ( +-  0.38% )
+
+          0.097972 +- 0.000769 seconds time elapsed  ( +-  0.79% )
+
+
+ Performance counter stats for './matmul_loopint 512 128 64 16' (20 runs):
+
+                67      LLC-load-misses           #    0.85% of all LL-cache hits     ( +- 21.05% )
+             7,909      LLC-loads                                                     ( +-  0.20% )
+           151,647      cache-references:u                                            ( +-  0.30% )
+               441      cache-misses:u            #    0.291 % of all cache refs      ( +- 20.59% )
+
+         0.0538779 +- 0.0000557 seconds time elapsed  ( +-  0.10% )
+
+
+ Performance counter stats for './matmul 512 128 64 16' (20 runs):
+
+                83      LLC-load-misses           #    0.37% of all LL-cache hits     ( +- 31.17% )
+            22,689      LLC-loads                                                     ( +-  0.86% )
+           220,445      cache-references:u                                            ( +-  0.22% )
+               548      cache-misses:u            #    0.249 % of all cache refs      ( +- 32.15% )
+
+          0.097671 +- 0.000770 seconds time elapsed  ( +-  0.79% )
+
+
+ Performance counter stats for './matmul_loopint 4096 2048 64 16' (20 runs):
+
+    58,014,828,203      ref-cycles:u                                                  ( +-  0.79% )
+   150,874,496,997      L1-dcache-loads                                               ( +-  0.00% )
+     1,607,555,029      L1-dcache-load-misses     #    1.07% of all L1-dcache hits    ( +-  0.56% )
+     1,766,369,590      l2_rqsts.references:u                                         ( +-  0.55% )
+        48,928,870      l2_rqsts.miss:u                                               ( +-  0.59% )
+
+            27.874 +- 0.221 seconds time elapsed  ( +-  0.79% )
+
+
+ Performance counter stats for './matmul 4096 2048 64 16' (20 runs):
+
+   106,178,129,623      ref-cycles:u                                                  ( +-  1.15% )
+   215,447,642,106      L1-dcache-loads                                               ( +-  0.00% )
+     1,256,109,826      L1-dcache-load-misses     #    0.58% of all L1-dcache hits    ( +-  1.59% )
+     1,387,983,295      l2_rqsts.references:u                                         ( +-  2.21% )
+        89,189,731      l2_rqsts.miss:u                                               ( +-  3.77% )
+
+            50.919 +- 0.586 seconds time elapsed  ( +-  1.15% )
+
+
+ Performance counter stats for './matmul_loopint 4096 2048 64 16' (20 runs):
+
+            93,059      LLC-load-misses           #    7.07% of all LL-cache hits     ( +-  0.71% )
+         1,316,766      LLC-loads                                                     ( +-  0.44% )
+        48,758,452      cache-references:u                                            ( +-  0.65% )
+         5,048,625      cache-misses:u            #   10.354 % of all cache refs      ( +-  1.08% )
+
+            28.210 +- 0.354 seconds time elapsed  ( +-  1.25% )
+
+
+ Performance counter stats for './matmul 4096 2048 64 16' (20 runs):
+
+           204,387      LLC-load-misses           #    1.68% of all LL-cache hits     ( +-  1.29% )
+        12,196,338      LLC-loads                                                     ( +-  0.65% )
+        87,857,905      cache-references:u                                            ( +-  3.45% )
+         5,265,106      cache-misses:u            #    5.993 % of all cache refs      ( +-  3.19% )
+
+            49.984 +- 0.706 seconds time elapsed  ( +-  1.41% )
+

@@ -1,0 +1,44 @@
+
+ Performance counter stats for './matmul 4096 32 16 -1' (5 runs):
+
+   176,802,807,233      ref-cycles:u                                                  ( +-  2.32% )
+   297,026,539,565      L1-dcache-loads                                               ( +-  0.00% )
+     1,060,933,567      L1-dcache-load-misses     #    0.36% of all L1-dcache hits    ( +- 11.02% )
+     1,214,275,848      l2_rqsts.references:u                                         ( +- 10.23% )
+       160,397,548      l2_rqsts.miss:u                                               ( +-  1.55% )
+
+             84.67 +- 1.97 seconds time elapsed  ( +-  2.32% )
+
+
+ Performance counter stats for './matmul 4096 64 16 -1' (5 runs):
+
+   178,858,976,050      ref-cycles:u                                                  ( +-  3.05% )
+   296,961,737,253      L1-dcache-loads                                               ( +-  0.00% )
+     1,138,141,177      L1-dcache-load-misses     #    0.38% of all L1-dcache hits    ( +-  1.19% )
+     1,518,496,863      l2_rqsts.references:u                                         ( +-  1.44% )
+       162,669,116      l2_rqsts.miss:u                                               ( +-  1.40% )
+
+             85.66 +- 2.61 seconds time elapsed  ( +-  3.05% )
+
+
+ Performance counter stats for './matmul 4096 128 16 -1' (5 runs):
+
+   184,751,238,706      ref-cycles:u                                                  ( +-  4.93% )
+   296,940,265,371      L1-dcache-loads                                               ( +-  0.00% )
+     1,156,439,313      L1-dcache-load-misses     #    0.39% of all L1-dcache hits    ( +-  1.03% )
+     1,329,442,802      l2_rqsts.references:u                                         ( +-  1.12% )
+       147,875,108      l2_rqsts.miss:u                                               ( +-  1.82% )
+
+             88.47 +- 4.36 seconds time elapsed  ( +-  4.93% )
+
+
+ Performance counter stats for './matmul 4096 2048 32 16' (5 runs):
+
+   134,925,053,978      ref-cycles:u                                                  ( +-  3.91% )
+   215,552,615,515      L1-dcache-loads                                               ( +-  0.00% )
+     1,416,803,852      L1-dcache-load-misses     #    0.66% of all L1-dcache hits    ( +-  3.34% )
+     1,541,014,445      l2_rqsts.references:u                                         ( +-  3.19% )
+       117,402,863      l2_rqsts.miss:u                                               ( +-  0.76% )
+
+             64.67 +- 2.53 seconds time elapsed  ( +-  3.91% )
+
