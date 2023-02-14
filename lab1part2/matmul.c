@@ -227,3 +227,4 @@ int main(int argc, char *argv[]) {
   matmul(A, B, C);
 
   return (0);
+}
