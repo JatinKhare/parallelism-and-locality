@@ -1,0 +1,29 @@
+mkdir -p objs/
+g++  -O0  -I../common  -o cudaSaxpy objs/main.o  objs/saxpy_basic.o  -L/opt/apps/cuda/11.3/lib64/ -lcudart -Wl,-rpath=/opt/apps/cuda/11.3/lib64
+g++  -O0  -I../common  -o cudaSaxpyUvm objs/main.o  objs/saxpy_uvm.o  -L/opt/apps/cuda/11.3/lib64/ -lcudart -Wl,-rpath=/opt/apps/cuda/11.3/lib64
+g++  -O0  -I../common  -o cudaSaxpyStream objs/main.o  objs/saxpy_stream.o  -L/opt/apps/cuda/11.3/lib64/ -lcudart -Wl,-rpath=/opt/apps/cuda/11.3/lib64
+---------------------------------------------------------
+Found 4 CUDA devices
+Device 0: GeForce GTX 1080 Ti
+   SMs:        28
+   Global mem: 11178 MB
+   CUDA Cap:   6.1
+Device 1: GeForce GTX 1080 Ti
+   SMs:        28
+   Global mem: 11178 MB
+   CUDA Cap:   6.1
+Device 2: GeForce GTX 1080 Ti
+   SMs:        28
+   Global mem: 11178 MB
+   CUDA Cap:   6.1
+Device 3: GeForce GTX 1080 Ti
+   SMs:        28
+   Global mem: 11178 MB
+   CUDA Cap:   6.1
+---------------------------------------------------------
+Overall time :  892.162 ms [   1.780 GB/s ]
+GPU Kernel   :    0.124 ms [4285.736 Ops/s]
+Copy CPU->GPU:  604.992 ms [  -0.454 GB/s ]
+Copy CPU<-GPU:  287.087 ms [   1.844 GB/s ]
+check_saxpy
+Test succeeded

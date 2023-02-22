@@ -1,0 +1,116 @@
+
+Lmod is automatically replacing "intel/18.0.2" with "gcc/7.3.0".
+
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) impi/18.0.2     2) python2/2.7.16
+
+mkdir -p objs/
+g++  main.cpp -O0  -I../common  -c -o objs/main.o
+/opt/apps/cuda/11.3/bin/nvcc -ccbin=g++   saxpy_basic.cu -O3 -m64 -gencode arch=compute_60,code=sm_60 -gencode arch=compute_61,code=sm_61  -I../common -c -o objs/saxpy_basic.o
+saxpy_basic.cu(24): warning: missing return statement at end of non-void function "getBlocks"
+
+saxpy_basic.cu(39): warning: variable "threadsPerBlock" was declared but never referenced
+
+saxpy_basic.cu(41): warning: variable "device_x" was declared but never referenced
+
+saxpy_basic.cu(42): warning: variable "device_y" was declared but never referenced
+
+saxpy_basic.cu(43): warning: variable "device_result" was declared but never referenced
+
+saxpy_basic.cu(22): warning: function "getBlocks" was declared but never referenced
+
+saxpy_basic.cu(24): warning: missing return statement at end of non-void function "getBlocks"
+
+saxpy_basic.cu(39): warning: variable "threadsPerBlock" was declared but never referenced
+
+saxpy_basic.cu(41): warning: variable "device_x" was declared but never referenced
+
+saxpy_basic.cu(42): warning: variable "device_y" was declared but never referenced
+
+saxpy_basic.cu(43): warning: variable "device_result" was declared but never referenced
+
+saxpy_basic.cu(22): warning: function "getBlocks" was declared but never referenced
+
+saxpy_basic.cu(24): warning: missing return statement at end of non-void function "getBlocks"
+
+g++  -O0  -I../common  -o cudaSaxpy objs/main.o  objs/saxpy_basic.o  -L/opt/apps/cuda/11.3/lib64/ -lcudart -Wl,-rpath=/opt/apps/cuda/11.3/lib64
+/opt/apps/cuda/11.3/bin/nvcc -ccbin=g++   saxpy_uvm.cu -O3 -m64 -gencode arch=compute_60,code=sm_60 -gencode arch=compute_61,code=sm_61  -I../common -c -o objs/saxpy_uvm.o
+saxpy_uvm.cu(24): warning: missing return statement at end of non-void function "getBlocks"
+
+saxpy_uvm.cu(39): warning: variable "threadsPerBlock" was declared but never referenced
+
+saxpy_uvm.cu(41): warning: variable "device_x" was declared but never referenced
+
+saxpy_uvm.cu(42): warning: variable "device_y" was declared but never referenced
+
+saxpy_uvm.cu(43): warning: variable "device_result" was declared but never referenced
+
+saxpy_uvm.cu(22): warning: function "getBlocks" was declared but never referenced
+
+saxpy_uvm.cu(24): warning: missing return statement at end of non-void function "getBlocks"
+
+saxpy_uvm.cu(39): warning: variable "threadsPerBlock" was declared but never referenced
+
+saxpy_uvm.cu(41): warning: variable "device_x" was declared but never referenced
+
+saxpy_uvm.cu(42): warning: variable "device_y" was declared but never referenced
+
+saxpy_uvm.cu(43): warning: variable "device_result" was declared but never referenced
+
+saxpy_uvm.cu(22): warning: function "getBlocks" was declared but never referenced
+
+saxpy_uvm.cu(24): warning: missing return statement at end of non-void function "getBlocks"
+
+g++  -O0  -I../common  -o cudaSaxpyUvm objs/main.o  objs/saxpy_uvm.o  -L/opt/apps/cuda/11.3/lib64/ -lcudart -Wl,-rpath=/opt/apps/cuda/11.3/lib64
+/opt/apps/cuda/11.3/bin/nvcc -ccbin=g++   saxpy_stream.cu -O3 -m64 -gencode arch=compute_60,code=sm_60 -gencode arch=compute_61,code=sm_61  -I../common -c -o objs/saxpy_stream.o
+saxpy_stream.cu(24): warning: missing return statement at end of non-void function "getBlocks"
+
+saxpy_stream.cu(39): warning: variable "threadsPerBlock" was declared but never referenced
+
+saxpy_stream.cu(41): warning: variable "device_x" was declared but never referenced
+
+saxpy_stream.cu(42): warning: variable "device_y" was declared but never referenced
+
+saxpy_stream.cu(43): warning: variable "device_result" was declared but never referenced
+
+saxpy_stream.cu(22): warning: function "getBlocks" was declared but never referenced
+
+saxpy_stream.cu(24): warning: missing return statement at end of non-void function "getBlocks"
+
+saxpy_stream.cu(39): warning: variable "threadsPerBlock" was declared but never referenced
+
+saxpy_stream.cu(41): warning: variable "device_x" was declared but never referenced
+
+saxpy_stream.cu(42): warning: variable "device_y" was declared but never referenced
+
+saxpy_stream.cu(43): warning: variable "device_result" was declared but never referenced
+
+saxpy_stream.cu(22): warning: function "getBlocks" was declared but never referenced
+
+saxpy_stream.cu(24): warning: missing return statement at end of non-void function "getBlocks"
+
+g++  -O0  -I../common  -o cudaSaxpyStream objs/main.o  objs/saxpy_stream.o  -L/opt/apps/cuda/11.3/lib64/ -lcudart -Wl,-rpath=/opt/apps/cuda/11.3/lib64
+---------------------------------------------------------
+Found 4 CUDA devices
+Device 0: GeForce GTX 1080 Ti
+   SMs:        28
+   Global mem: 11178 MB
+   CUDA Cap:   6.1
+Device 1: GeForce GTX 1080 Ti
+   SMs:        28
+   Global mem: 11178 MB
+   CUDA Cap:   6.1
+Device 2: GeForce GTX 1080 Ti
+   SMs:        28
+   Global mem: 11178 MB
+   CUDA Cap:   6.1
+Device 3: GeForce GTX 1080 Ti
+   SMs:        28
+   Global mem: 11178 MB
+   CUDA Cap:   6.1
+---------------------------------------------------------
+Overall time :    0.025 ms [64388.238 GB/s ]
+GPU Kernel   :    0.000 ms [     inf Ops/s]
+Copy CPU->GPU:    0.000 ms [    -inf GB/s ]
+Copy CPU<-GPU:    0.000 ms [     inf GB/s ]

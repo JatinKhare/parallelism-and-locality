@@ -1,0 +1,109 @@
+mkdir -p objs/
+g++  -O0  -I../common  -o cudaSaxpy objs/main.o  objs/saxpy_basic.o  -L/opt/apps/cuda/11.3/lib64/ -lcudart -Wl,-rpath=/opt/apps/cuda/11.3/lib64
+g++  -O0  -I../common  -o cudaSaxpyUvm objs/main.o  objs/saxpy_uvm.o  -L/opt/apps/cuda/11.3/lib64/ -lcudart -Wl,-rpath=/opt/apps/cuda/11.3/lib64
+g++  -O0  -I../common  -o cudaSaxpyStream objs/main.o  objs/saxpy_stream.o  -L/opt/apps/cuda/11.3/lib64/ -lcudart -Wl,-rpath=/opt/apps/cuda/11.3/lib64
+WARNING: The command line includes a target application therefore the CPU context-switch scope has been set to process-tree.
+Collecting data...
+---------------------------------------------------------
+Found 4 CUDA devices
+Device 0: GeForce GTX 1080 Ti
+   SMs:        28
+   Global mem: 11178 MB
+   CUDA Cap:   6.1
+Device 1: GeForce GTX 1080 Ti
+   SMs:        28
+   Global mem: 11178 MB
+   CUDA Cap:   6.1
+Device 2: GeForce GTX 1080 Ti
+   SMs:        28
+   Global mem: 11178 MB
+   CUDA Cap:   6.1
+Device 3: GeForce GTX 1080 Ti
+   SMs:        28
+   Global mem: 11178 MB
+   CUDA Cap:   6.1
+---------------------------------------------------------
+Overall time : 4784.522 ms [   0.332 GB/s ]
+GPU Kernel   :    0.077 ms [6882.285 Ops/s]
+Copy CPU->GPU: 2485.447 ms [  -0.111 GB/s ]
+Copy CPU<-GPU: 1151.478 ms [   0.460 GB/s ]
+check_saxpy
+Test succeeded
+Processing events...
+Saving temporary "/tmp/nsys-report-3303-5384-3315-65a5.qdstrm" file to disk...
+
+Creating final output files...
+Processing [0%                                                                ]Processing [1%                                                                ]Processing [2%                                                                ]Processing [1%                                                                ]Processing [0%                                                                ]Processing [2%                                                                ]Processing [1%                                                                ]Processing [2%                                                                ]Processing [3%                                                                ]Processing [2%                                                                ]Processing [3%                                                                ]Processing [4%                                                                ]Processing [3%                                                                ]Processing [4%                                                                ]Processing [=5%                                                               ]Processing [=6%                                                               ]Processing [===8%                                                             ]Processing [===9%                                                             ]Processing [===10%                                                            ]Processing [====12%                                                           ]Processing [=====13%                                                          ]Processing [======14%                                                         ]Processing [======15%                                                         ]Processing [=======16%                                                        ]Processing [========18%                                                       ]Processing [=========19%                                                      ]Processing [==========21%                                                     ]Processing [===========22%                                                    ]Processing [============23%                                                   ]Processing [============24%                                                   ]Processing [==============26%                                                 ]Processing [==============27%                                                 ]Processing [===============28%                                                ]Processing [================29%                                               ]Processing [================30%                                               ]Processing [=================31%                                              ]Processing [==================32%                                             ]Processing [==================33%                                             ]Processing [===================34%                                            ]Processing [====================35%                                           ]Processing [====================36%                                           ]Processing [=====================37%                                          ]Processing [======================38%                                         ]Processing [======================39%                                         ]Processing [=======================40%                                        ]Processing [========================41%                                       ]Processing [========================42%                                       ]Processing [=========================43%                                      ]Processing [==========================44%                                     ]Processing [==========================45%                                     ]Processing [===========================46%                                    ]Processing [============================47%                                   ]Processing [============================48%                                   ]Processing [=============================49%                                  ]Processing [==============================50%                                 ]Processing [==============================51%                                 ]Processing [===============================52%                                ]Processing [===============================53%                                ]Processing [================================54%                               ]Processing [=================================55%                              ]Processing [=================================56%                              ]Processing [==================================57%                             ]Processing [===================================58%                            ]Processing [===================================59%                            ]Processing [====================================60%                           ]Processing [=====================================61%                          ]Processing [=====================================62%                          ]Processing [======================================63%                         ]Processing [=======================================64%                        ]Processing [=======================================65%                        ]Processing [========================================66%                       ]Processing [=========================================67%                      ]Processing [=========================================68%                      ]Processing [==========================================69%                     ]Processing [===========================================70%                    ]Processing [===========================================71%                    ]Processing [============================================72%                   ]Processing [=============================================73%                  ]Processing [=============================================74%                  ]Processing [==============================================75%                 ]Processing [===============================================76%                ]Processing [===============================================77%                ]Processing [================================================78%               ]Processing [==============================================================100%]
+Saved report file to "/tmp/nsys-report-3303-5384-3315-65a5.qdrep"
+Exporting 765010 events: [1%                                                  ]Exporting 765010 events: [2%                                                  ]Exporting 765010 events: [3%                                                  ]Exporting 765010 events: [4%                                                  ]Exporting 765010 events: [5%                                                  ]Exporting 765010 events: [=6%                                                 ]Exporting 765010 events: [=7%                                                 ]Exporting 765010 events: [==8%                                                ]Exporting 765010 events: [==9%                                                ]Exporting 765010 events: [==10%                                               ]Exporting 765010 events: [==11%                                               ]Exporting 765010 events: [===12%                                              ]Exporting 765010 events: [===13%                                              ]Exporting 765010 events: [====14%                                             ]Exporting 765010 events: [====15%                                             ]Exporting 765010 events: [=====16%                                            ]Exporting 765010 events: [=====17%                                            ]Exporting 765010 events: [======18%                                           ]Exporting 765010 events: [======19%                                           ]Exporting 765010 events: [=======20%                                          ]Exporting 765010 events: [=======21%                                          ]Exporting 765010 events: [========22%                                         ]Exporting 765010 events: [========23%                                         ]Exporting 765010 events: [=========24%                                        ]Exporting 765010 events: [==========25%                                       ]Exporting 765010 events: [==========26%                                       ]Exporting 765010 events: [===========27%                                      ]Exporting 765010 events: [===========28%                                      ]Exporting 765010 events: [============29%                                     ]Exporting 765010 events: [============30%                                     ]Exporting 765010 events: [=============31%                                    ]Exporting 765010 events: [=============32%                                    ]Exporting 765010 events: [==============33%                                   ]Exporting 765010 events: [==============34%                                   ]Exporting 765010 events: [===============35%                                  ]Exporting 765010 events: [===============36%                                  ]Exporting 765010 events: [================37%                                 ]Exporting 765010 events: [================38%                                 ]Exporting 765010 events: [=================39%                                ]Exporting 765010 events: [=================40%                                ]Exporting 765010 events: [==================41%                               ]Exporting 765010 events: [==================42%                               ]Exporting 765010 events: [===================43%                              ]Exporting 765010 events: [===================44%                              ]Exporting 765010 events: [====================45%                             ]Exporting 765010 events: [====================46%                             ]Exporting 765010 events: [=====================47%                            ]Exporting 765010 events: [=====================48%                            ]Exporting 765010 events: [======================49%                           ]Exporting 765010 events: [=======================50%                          ]Exporting 765010 events: [=======================51%                          ]Exporting 765010 events: [========================52%                         ]Exporting 765010 events: [========================53%                         ]Exporting 765010 events: [=========================54%                        ]Exporting 765010 events: [=========================55%                        ]Exporting 765010 events: [==========================56%                       ]Exporting 765010 events: [==========================57%                       ]Exporting 765010 events: [===========================58%                      ]Exporting 765010 events: [===========================59%                      ]Exporting 765010 events: [============================60%                     ]Exporting 765010 events: [============================61%                     ]Exporting 765010 events: [=============================62%                    ]Exporting 765010 events: [=============================63%                    ]Exporting 765010 events: [==============================64%                   ]Exporting 765010 events: [==============================65%                   ]Exporting 765010 events: [===============================66%                  ]Exporting 765010 events: [===============================67%                  ]Exporting 765010 events: [================================68%                 ]Exporting 765010 events: [================================69%                 ]Exporting 765010 events: [=================================70%                ]Exporting 765010 events: [=================================71%                ]Exporting 765010 events: [==================================72%               ]Exporting 765010 events: [==================================73%               ]Exporting 765010 events: [===================================74%              ]Exporting 765010 events: [====================================75%             ]Exporting 765010 events: [====================================76%             ]Exporting 765010 events: [=====================================77%            ]Exporting 765010 events: [=====================================78%            ]Exporting 765010 events: [======================================79%           ]Exporting 765010 events: [======================================80%           ]Exporting 765010 events: [=======================================81%          ]Exporting 765010 events: [=======================================82%          ]Exporting 765010 events: [========================================83%         ]Exporting 765010 events: [========================================84%         ]Exporting 765010 events: [=========================================85%        ]Exporting 765010 events: [=========================================86%        ]Exporting 765010 events: [==========================================87%       ]Exporting 765010 events: [==========================================88%       ]Exporting 765010 events: [===========================================89%      ]Exporting 765010 events: [===========================================90%      ]Exporting 765010 events: [============================================91%     ]Exporting 765010 events: [============================================92%     ]Exporting 765010 events: [=============================================93%    ]Exporting 765010 events: [=============================================94%    ]Exporting 765010 events: [==============================================95%   ]Exporting 765010 events: [==============================================96%   ]Exporting 765010 events: [===============================================97%  ]Exporting 765010 events: [===============================================98%  ]Exporting 765010 events: [================================================99% ]Exporting 765010 events: [================================================100%]
+
+Exported successfully to
+/tmp/nsys-report-3303-5384-3315-65a5.sqlite
+
+
+CUDA API Statistics:
+
+ Time(%)  Total Time (ns)  Num Calls      Average        Minimum       Maximum             Name         
+ -------  ---------------  ---------  ---------------  -----------  -------------  ---------------------
+    93.0    4,589,745,124          4  1,147,436,281.0  949,264,343  1,427,674,046  cudaDeviceSynchronize
+     7.0      344,640,126         12     28,720,010.5       23,859    343,983,965  cudaMallocManaged    
+     0.0          238,989          4         59,747.3       47,923         83,863  cudaLaunchKernel     
+
+
+
+CUDA Kernel Statistics:
+
+ Time(%)  Total Time (ns)  Instances      Average        Minimum       Maximum                           Name                      
+ -------  ---------------  ---------  ---------------  -----------  -------------  ------------------------------------------------
+   100.0    4,589,731,025          4  1,147,432,756.3  949,262,405  1,427,662,852  saxpy_kernel(int, float, float*, float*, float*)
+
+
+
+CUDA Memory Operation Statistics (by time):
+
+ Time(%)  Total Time (ns)  Operations  Average   Minimum  Maximum              Operation            
+ -------  ---------------  ----------  --------  -------  -------  ---------------------------------
+    57.4    1,552,908,116     280,791   5,530.5      894  116,356  [CUDA Unified Memory memcpy HtoD]
+    42.6    1,151,579,992      48,862  23,568.0      959  195,720  [CUDA Unified Memory memcpy DtoH]
+
+
+
+CUDA Memory Operation Statistics (by size in KiB):
+
+     Total       Operations  Average  Minimum   Maximum               Operation            
+ --------------  ----------  -------  -------  ---------  ---------------------------------
+ 15,625,024.000     280,791   55.646    4.000  1,020.000  [CUDA Unified Memory memcpy HtoD]
+ 14,097,312.000      48,862  288.513    4.000  2,048.000  [CUDA Unified Memory memcpy DtoH]
+
+
+
+Operating System Runtime API Statistics:
+
+ Time(%)  Total Time (ns)  Num Calls     Average       Minimum      Maximum             Name         
+ -------  ---------------  ---------  -------------  -----------  -----------  ----------------------
+    60.8   42,147,665,233      2,155   19,558,081.3        2,358  100,200,373  poll                  
+    33.2   23,004,708,603         46  500,102,360.9  500,016,602  500,127,192  pthread_cond_timedwait
+     5.8    4,039,098,235      1,921    2,102,601.9       20,715   21,078,372  sem_timedwait         
+     0.2      142,221,558      1,097      129,645.9        1,104   18,774,067  ioctl                 
+     0.0        5,709,171        128       44,602.9        1,285    1,574,007  mmap                  
+     0.0        1,135,257          5      227,051.4       53,265      811,848  pthread_create        
+     0.0          869,878        112        7,766.8        2,818       36,049  open64                
+     0.0          394,601         43        9,176.8        1,149       30,863  fopen                 
+     0.0          310,058         37        8,379.9        2,694       38,900  fclose                
+     0.0          176,448          4       44,112.0       38,739       51,522  fgets                 
+     0.0          150,011         21        7,143.4        1,118       24,561  fgetc                 
+     0.0           70,362         21        3,350.6        1,184        9,597  munmap                
+     0.0           45,561         10        4,556.1        3,120        7,268  write                 
+     0.0           35,674          5        7,134.8        3,520       11,473  open                  
+     0.0           20,683          5        4,136.6        1,900        6,713  mprotect              
+     0.0           18,150          2        9,075.0        6,573       11,577  fread                 
+     0.0           13,922          8        1,740.3        1,177        3,402  read                  
+     0.0           13,413          6        2,235.5        1,032        7,486  fcntl                 
+     0.0            7,637          2        3,818.5        2,844        4,793  socket                
+     0.0            7,488          1        7,488.0        7,488        7,488  connect               
+     0.0            7,399          1        7,399.0        7,399        7,399  pipe2                 
+     0.0            1,326          1        1,326.0        1,326        1,326  bind                  
+Report file moved to "/home1/08474/jkhare/lab2/1_saxpy/report8.qdrep"
+Report file moved to "/home1/08474/jkhare/lab2/1_saxpy/report8.sqlite"
+
+
