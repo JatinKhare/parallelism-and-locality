@@ -94,9 +94,7 @@ int main(int argc, char** argv)
     //
     // TODO: allocate host-side memory
     //
-    xarray = (float*)malloc(total_elems*sizeof(float));
-    yarray = (float*)malloc(total_elems*sizeof(float));
-    resultarray = (float*)malloc(total_elems*sizeof(float)); 
+    getArrays(total_elems, &xarray, &yarray, &resultarray); 
     //
     // Initialize input arrays
     //
@@ -115,7 +113,7 @@ int main(int argc, char** argv)
     timeKernelAvg /= iterations;
     timeCopyH2DAvg /= iterations;
     timeCopyD2HAvg /= iterations;
-
+ 
     const int totalBytes = sizeof(float) * 3 * total_elems;
     printf("Overall time : %8.3f ms [%8.3f GB/s ]\n", 1000.f * totalTimeAvg, toBW(totalBytes, totalTimeAvg));
     printf("GPU Kernel   : %8.3f ms [%8.3f Ops/s]\n", 1000.f * timeKernelAvg, toBW(totalBytes/3, timeKernelAvg));
@@ -136,9 +134,7 @@ int main(int argc, char** argv)
     //
     // TODO: deallocate host-side memory
     //
-    free(xarray);
-    free(yarray);
-    free(resultarray);
+    freeArrays(xarray, yarray, resultarray);
  
     return 0;
 }

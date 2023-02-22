@@ -12,7 +12,7 @@ export CUDA_PATH=$TACC_CUDA_DIR
 make
 #nsys profile -–stats=true  ./cudaSaxpy -n 500000000 -p 1 -i 4
 #nsys profile -t cuda,nvtx --stats=true --trace=cuda,osrt,cublas,mpi --force-overwrite true -o profile_report ./cudaSaxpy -n 500000000 -p 1 -i 4
-nsys profile --stats=true ./cudaSaxpyStream -n 500000000 -p 1 -i 4
+#nsys profile --stats=true ./cudaSaxpyStream -n 500000000 -p 1 -i 4
 #./cudaSaxpy -n 500000000 -p 1 -i 4
 #./cudaSaxpyUvm -n 500000000 -p 1 -i 4
-#./cudaSaxpyStream -n 500000000 -p 1 -i 4
+./cudaSaxpyStream -n 500000000 -p 32 -i 4

@@ -26,11 +26,17 @@ int getBlocks(long working_set_size, int threadsPerBlock) {
 void 
 getArrays(int size, float **xarray, float **yarray, float **resultarray) {
   // TODO: implement and use this interface if necessary  
+    *xarray = (float*)malloc(size*sizeof(float));
+    *yarray = (float*)malloc(size*sizeof(float));
+    *resultarray = (float*)malloc(size*sizeof(float)); 
 }
 
 void 
 freeArrays(float *xarray, float *yarray, float *resultarray) {
   // TODO: implement and use this interface if necessary  
+  free(xarray);
+  free(yarray);
+  free(resultarray);
 }
 
 void

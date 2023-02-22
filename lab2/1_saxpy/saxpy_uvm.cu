@@ -27,11 +27,18 @@ int getBlocks(long working_set_size, int threadsPerBlock) {
 void 
 getArrays(int size, float **xarray, float **yarray, float **resultarray) {
   // TODO: implement and use this interface if necessary  
+    cudaMallocManaged(xarray, size*sizeof(float));
+    cudaMallocManaged(yarray, size*sizeof(float));
+    cudaMallocManaged(resultarray, size*sizeof(float));
 }
 
 void 
 freeArrays(float *xarray, float *yarray, float *resultarray) {
-  // TODO: implement and use this interface if necessary  
+  // TODO: implement and use this interface if necessary
+    cudaFree(xarray);
+    cudaFree(yarray);
+    cudaFree(resultarray);
+
 }
 
 void
@@ -39,36 +46,26 @@ saxpyCuda(long total_elems, float alpha, float* xarray, float* yarray, float* re
 
     const int threadsPerBlock = 512; // change this if necessary
 
-    float *device_x;
-    float *device_y;
-    float *device_result;
+    //float *device_x;
+    //float *device_y;
+    //float *device_result;
     //
     // TODO: do we need to allocate device memory buffers on the GPU here?
     //
-    cudaMallocManaged(&device_x, total_elems*sizeof(float));
-    cudaMallocManaged(&device_y, total_elems*sizeof(float));
-    cudaMallocManaged(&device_result, total_elems*sizeof(float));
     
     // start timing after allocation of device memory.
     double startTime = CycleTimer::currentSeconds();
     //
     // TODO: do we need copy here?
     //
-    double startCopyO2Ntime = CycleTimer::currentSeconds();
-    for(int i = 0; i< total_elems; i++){
-      device_x[i] = xarray[i];
-      device_y[i] = yarray[i];
-    }
-    double endCopyO2Ntime = CycleTimer::currentSeconds();
-    //
     // TODO: insert time here to begin timing only the kernel
     //
+    double startGPUTime = CycleTimer::currentSeconds();
     // compute number of blocks and threads per block
     int threadBlocks = getBlocks(total_elems, threadsPerBlock); 
 
-    double startGPUTime = CycleTimer::currentSeconds();
     // run saxpy_kernel on the GPU
-    saxpy_kernel<<<threadBlocks, threadsPerBlock>>>(total_elems, alpha, device_x, device_y, device_result);
+    saxpy_kernel<<<threadBlocks, threadsPerBlock>>>(total_elems, alpha, xarray, yarray, resultarray);
     double endGPUTime = CycleTimer::currentSeconds();
     double timeKernel = endGPUTime - startGPUTime; 
     //
@@ -89,21 +86,13 @@ saxpyCuda(long total_elems, float alpha, float* xarray, float* yarray, float* re
     //
     // TODO: copy result from GPU using cudaMemcpy
     //
-
-    double startCopyN2Otime = CycleTimer::currentSeconds();
-    for(int i = 0; i< total_elems; i++){
-      resultarray[i] = device_result[i];
-     }
-    double endCopyN2Otime = CycleTimer::currentSeconds();
-
     // What would be copy time when we use UVM?
 
     double endTime = CycleTimer::currentSeconds();
     double overallDuration = endTime - startTime;
     totalTimeAvg   += overallDuration;
     timeKernelAvg += timeKernel;
-    timeCopyH2DAvg += endCopyO2Ntime - startCopyO2Ntime;
-    timeCopyD2HAvg += endCopyN2Otime - startCopyN2Otime;
+
     //
     // TODO free device memory if you allocate some device memory earlier in this function.
     //
