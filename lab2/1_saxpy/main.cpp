@@ -10,7 +10,6 @@ double timeKernelAvg = 0.0;
 double timeCopyH2DAvg = 0.0;
 double timeCopyD2HAvg = 0.0;
 double totalTimeAvg = 0.0;
-
 // return GB/s
 float toBW(long bytes, float sec) {
     return static_cast<float>(bytes) / (1024. * 1024. * 1024.) / sec;
@@ -25,8 +24,9 @@ bool check_saxpy(long N, float* a, float* b) {
     printf("%s\n", __func__);
     std::vector<long> diffs;
     for (long index=0; index<N; index++) {
-       if (a[index] != b[index]) 
-         diffs.push_back(index);
+       if (a[index] != b[index]){
+        diffs.push_back(index);
+       }
     }
     if (diffs.size() > 0) {
         MYDEBUG("%s done\n", __func__);

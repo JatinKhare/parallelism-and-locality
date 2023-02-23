@@ -1,9 +1,0 @@
-mkdir -p objs/
-g++  -O0  -I../common  -o cudaSaxpy objs/main.o  objs/saxpy_basic.o  -L/opt/apps/cuda/11.3/lib64/ -lcudart -Wl,-rpath=/opt/apps/cuda/11.3/lib64
-g++  -O0  -I../common  -o cudaSaxpyUvm objs/main.o  objs/saxpy_uvm.o  -L/opt/apps/cuda/11.3/lib64/ -lcudart -Wl,-rpath=/opt/apps/cuda/11.3/lib64
-/opt/apps/cuda/11.3/bin/nvcc -ccbin=g++   saxpy_stream.cu -O3 -m64 -gencode arch=compute_60,code=sm_60 -gencode arch=compute_61,code=sm_61  -I../common -c -o objs/saxpy_stream.o
-g++  -O0  -I../common  -o cudaSaxpyStream objs/main.o  objs/saxpy_stream.o  -L/opt/apps/cuda/11.3/lib64/ -lcudart -Wl,-rpath=/opt/apps/cuda/11.3/lib64
-option '--trace' cannot be specified more than once
-
-usage: nsys profile [<args>] [application] [<application args>]
-Try 'nsys profile --help' for more information.

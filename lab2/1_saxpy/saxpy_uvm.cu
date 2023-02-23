@@ -43,51 +43,32 @@ freeArrays(float *xarray, float *yarray, float *resultarray) {
 
 void
 saxpyCuda(long total_elems, float alpha, float* xarray, float* yarray, float* resultarray, int partitions) {
-
     const int threadsPerBlock = 512; // change this if necessary
-
     //float *device_x;
     //float *device_y;
     //float *device_result;
-    //
     // TODO: do we need to allocate device memory buffers on the GPU here?
-    //
-    
     // start timing after allocation of device memory.
     double startTime = CycleTimer::currentSeconds();
-    //
     // TODO: do we need copy here?
-    //
     // TODO: insert time here to begin timing only the kernel
-    //
     double startGPUTime = CycleTimer::currentSeconds();
     // compute number of blocks and threads per block
     int threadBlocks = getBlocks(total_elems, threadsPerBlock); 
-
     // run saxpy_kernel on the GPU
     saxpy_kernel<<<threadBlocks, threadsPerBlock>>>(total_elems, alpha, xarray, yarray, resultarray);
+    cudaDeviceSynchronize();
     double endGPUTime = CycleTimer::currentSeconds();
     double timeKernel = endGPUTime - startGPUTime; 
-    //
-    // TODO: insert timer here to time only the kernel.  Since the
-    // kernel will run asynchronously with the calling CPU thread, you
-    // need to call cudaDeviceSynchronize() before your timer to
-    // ensure the kernel running on the GPU has completed.  (Otherwise
-    // you will incorrectly observe that almost no time elapses!)
-    //
-    // cudaDeviceSynchronize();
-    cudaDeviceSynchronize();
 
     cudaError_t errCode = cudaPeekAtLastError();
     if (errCode != cudaSuccess) {
         fprintf(stderr, "WARNING: A CUDA error occured: code=%d, %s\n", errCode, cudaGetErrorString(errCode));
     }
-    
     //
     // TODO: copy result from GPU using cudaMemcpy
     //
     // What would be copy time when we use UVM?
-
     double endTime = CycleTimer::currentSeconds();
     double overallDuration = endTime - startTime;
     totalTimeAvg   += overallDuration;
