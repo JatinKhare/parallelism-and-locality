@@ -31,9 +31,9 @@ static inline int nextPow2(int n)
 
 __global__ void
 upsweep_kernel(int* x, int twod, int twod1, int N, int rounded_length) {
-    // compute overall index from dev_offsetition of thread in current block,
-    // and given the block we are in
+    // calculate the thread index
     int index = blockIdx.x * blockDim.x * twod1 + threadIdx.x * twod1;
+    // if in the provided bound
     if (index < N){
        x[index+twod1-1] += x[index+twod-1];
     }
@@ -51,30 +51,7 @@ __global__ void downsweep_kernel(int* x, int twod, int twod1, int N) {
         x[index+twod1-1] += t; 
     }
 }
-/*__global__ void downsweep_kernel(int* x, int twod, int twod1, int N) {
-    __shared__ int sdata[256];
 
-    int index = blockIdx.x * blockDim.x * twod1 + threadIdx.x * twod1;
-    int A = index+twod-1, B = index+twod1-1; 
-    int A_s =threadIdx.x;
-    int B_s = A_s + 128;
-    
-    __syncthreads();
-    sdata[A_s] = x[A];
-    sdata[B_s] = x[B];
-    //printf("A_s = %d, B_s = %d\n", A_s, B_s);
-    if (index < N) {
-
-        //int t = sdata[A_s]; 
-        //sdata[A_s] = sdata[B_s];
-        //sdata[B_s] +=t;
-        int t = x[A];   
-        x[A] = x[B];
-        x[B] += t; 
-    }
-    //x[0] = sdata[A_s];
-    //x[B] = sdata[B_s];
-}*/
 void exclusive_scan(int* device_start, int length, int* device_result)
 {
     /* Fill in this function with your exclusive scan implementation.
@@ -86,23 +63,21 @@ void exclusive_scan(int* device_start, int length, int* device_result)
      * both the input and the output arrays are sized to accommodate the next
      * power of 2 larger than the input.
      */
-    int threadsPerBlock = 128;
+    int threadsPerBlock = 128; //this had the best performance
+
     int rounded_length = nextPow2(length);
-    // upsweep phase.
     int blocksPerGrid;
-    //printf("Length = %d\n", length);
-    for (int twod = 1; twod < rounded_length; twod*=2)
-    {
+
+    //Upsweep Phase
+    for (int twod = 1; twod < rounded_length; twod*=2){
         int twod1 = twod*2;
-        /// CUDA KERNEL HERE
         blocksPerGrid = ((std::ceil((float)length/twod1)) + threadsPerBlock - 1) / threadsPerBlock;
         upsweep_kernel<<<blocksPerGrid, threadsPerBlock>>>(device_result, twod, twod1, length, rounded_length-1);
+        //cudaDeviceSynchronize();
     }
-    // downsweep phase.
-    for (int twod = rounded_length/2; twod >= 1; twod /= 2)
-    {
+    //Upsweep Phase
+    for (int twod = rounded_length/2; twod >= 1; twod /= 2){
         int twod1 = twod*2;
-        // CUDA KERNEL HERE
         blocksPerGrid = (std::ceil(rounded_length/twod1) + threadsPerBlock - 1) / threadsPerBlock;
         downsweep_kernel<<<blocksPerGrid, threadsPerBlock, 2*threadsPerBlock*sizeof(int)>>>(device_result, twod, twod1, length); 
         //cudaDeviceSynchronize();
@@ -212,7 +187,7 @@ __global__ void find_index_kernel(int* A, int length, int* indices) {
         }
     }
 }
-/*__global__ void last_kernel(int* input, int n, int* prefix_sum, int* output) {
+/*__global__ void find_repeats_kernel(int* input, int n, int* prefix_sum, int* output) {
     int thread = blockIdx.x * blockDim.x + threadIdx.x;
        if(thread == 0){            
         for(int index = 0; index <n-1;index++){
@@ -237,7 +212,6 @@ __global__ void count_kernel(int *input, int length, int *count){
     if (index < length-1) {
         if (input[index] == input[index+1]) {
            atomicAdd(count, 1);
-           //(*count)++;
         }
     } 
 }
@@ -253,6 +227,7 @@ int find_repeats(int *device_input, int length, int *device_output) {
      * it requires that. However, you must ensure that the results of
      * find_repeats are correct given the original length.
      */    
+
     int threadsPerBlock = 1024;
     int threadBlocks = (length + threadsPerBlock - 1) / threadsPerBlock;
     int rounded_length = nextPow2(length);
@@ -263,13 +238,15 @@ int find_repeats(int *device_input, int length, int *device_output) {
     cudaMalloc((void **)&device_indices, rounded_length * sizeof(int));
     cudaMalloc((void **)&prefix_sum, rounded_length * sizeof(int));
     cudaMemcpy(count_device, &count, sizeof(int), cudaMemcpyHostToDevice);
+    // seperate kernel to find the total count. 
     count_kernel<<<threadBlocks, threadsPerBlock>>>(device_input, length, count_device);
     cudaMemcpy(&count, count_device, sizeof(int), cudaMemcpyDeviceToHost);
 
+    //kernel to calculate the index array
     find_index_kernel<<<threadBlocks, threadsPerBlock>>>(device_input, length, device_indices);
+    //finding the exclusive sum of the indices array
     exclusive_scan(device_indices, length, device_indices);
     find_repeats_kernel<<<threadBlocks, threadsPerBlock>>>(device_input, length, device_indices, device_output);
-
 
     return count;
 }

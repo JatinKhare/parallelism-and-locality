@@ -17,5 +17,5 @@ Device 3: GeForce GTX 1080 Ti
    Global mem: 11178 MB
    CUDA Cap:   6.1
 ---------------------------------------------------------
-GPU_time: 1.082 ms
+GPU_time: 1.091 ms
 Find_repeats outputs are correct!

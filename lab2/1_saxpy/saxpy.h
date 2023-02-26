@@ -1,6 +1,7 @@
 #ifndef __SAXPY_H__
 #define __SAXPY_H__
-float toBW(long bytes, float sec);
+//float toBW(long bytes, float sec);
+float toBW(double bytes, float sec);
 void saxpyCuda(long N, float alpha, float* x, float* y, float* result, int partitions);
 void printCudaInfo();
 void getArrays(int size, float **xarray, float **yarray, float **resultarray);

@@ -20,8 +20,8 @@ saxpy_kernel(int N, float alpha, float* x, float* y, float* result) {
 
 static inline
 int getBlocks(long working_set_size, int threadsPerBlock) {
-  return (working_set_size + threadsPerBlock - 1)/threadsPerBlock;
   // TODO: implement and use this interface if necessary  
+  return (working_set_size + threadsPerBlock - 1)/threadsPerBlock;
 }
 
 void 
@@ -47,17 +47,19 @@ saxpyCuda(long total_elems, float alpha, float* xarray, float* yarray, float* re
     //float *device_x;
     //float *device_y;
     //float *device_result;
-    // TODO: do we need to allocate device memory buffers on the GPU here?
+    // TODO: do we need to allocate device memory buffers on the GPU here? [ANSWER: NO]
     // start timing after allocation of device memory.
     double startTime = CycleTimer::currentSeconds();
-    // TODO: do we need copy here?
+    // TODO: do we need copy here? [ANSWER: NO]
     // TODO: insert time here to begin timing only the kernel
     double startGPUTime = CycleTimer::currentSeconds();
     // compute number of blocks and threads per block
     int threadBlocks = getBlocks(total_elems, threadsPerBlock); 
     // run saxpy_kernel on the GPU
+
     saxpy_kernel<<<threadBlocks, threadsPerBlock>>>(total_elems, alpha, xarray, yarray, resultarray);
     cudaDeviceSynchronize();
+
     double endGPUTime = CycleTimer::currentSeconds();
     double timeKernel = endGPUTime - startGPUTime; 
 
@@ -68,7 +70,7 @@ saxpyCuda(long total_elems, float alpha, float* xarray, float* yarray, float* re
     //
     // TODO: copy result from GPU using cudaMemcpy
     //
-    // What would be copy time when we use UVM?
+    // What would be copy time when we use UVM? [ANSWER: NO EXPLICIT COPYING IN UVM]
     double endTime = CycleTimer::currentSeconds();
     double overallDuration = endTime - startTime;
     totalTimeAvg   += overallDuration;

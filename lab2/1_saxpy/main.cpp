@@ -6,13 +6,15 @@
 #include <time.h>
 #include "saxpy.h"
 #include "common.h"
+#include "CycleTimer.h"
 double timeKernelAvg = 0.0;
 double timeCopyH2DAvg = 0.0;
 double timeCopyD2HAvg = 0.0;
 double totalTimeAvg = 0.0;
+double totalCPUTimeAvg = 0.0;
 // return GB/s
-float toBW(long bytes, float sec) {
-    return static_cast<float>(bytes) / (1024. * 1024. * 1024.) / sec;
+float toBW(double bytes, float sec) {
+    return (static_cast<float>((bytes) / (1024. * 1024. * 1024.)) / sec);
 }
 
 void saxpyCpu(long N, float alpha, float* x, float* y, float* result) {
@@ -54,6 +56,7 @@ void usage(const char* progname) {
 int main(int argc, char** argv)
 {
 
+	double startmain = CycleTimer::currentSeconds();
     long total_elems = 512 * 1024 * 1024; 
     int partitions = 1;
     int iterations = 1;
@@ -109,32 +112,42 @@ int main(int argc, char** argv)
     for (int i=0; i<iterations; i++) { 
         saxpyCuda(total_elems, alpha, xarray, yarray, resultarray, partitions);
     }
+    totalCPUTimeAvg /= iterations;
     totalTimeAvg /= iterations;
     timeKernelAvg /= iterations;
     timeCopyH2DAvg /= iterations;
     timeCopyD2HAvg /= iterations;
  
     const int totalBytes = sizeof(float) * 3 * total_elems;
-    printf("Overall time : %8.3f ms [%8.3f GB/s ]\n", 1000.f * totalTimeAvg, toBW(totalBytes, totalTimeAvg));
-    printf("GPU Kernel   : %8.3f ms [%8.3f Ops/s]\n", 1000.f * timeKernelAvg, toBW(totalBytes/3, timeKernelAvg));
-    printf("Copy CPU->GPU: %8.3f ms [%8.3f GB/s ]\n", 1000.f * timeCopyH2DAvg, toBW(totalBytes*2/3, timeCopyH2DAvg));
-    printf("Copy CPU<-GPU: %8.3f ms [%8.3f GB/s ]\n", 1000.f * timeCopyD2HAvg, toBW(totalBytes/3, timeCopyD2HAvg));
+    const long int totalBytes_our = sizeof(float) * 3 * total_elems;
+    long double transfer1 =  static_cast<long double>(2*totalBytes_our)/ static_cast<long double>(3);
+    long double transfer2 =  static_cast<long double>(totalBytes_our)/3;
+    printf("Overall time : %8.3f ms [%8.3f GB/s ]\n", 1000.f * totalTimeAvg, toBW(totalBytes_our, totalTimeAvg));
+    printf("GPU Kernel   : %8.3f ms [%8.3f Ops/s]\n", 1000.f * timeKernelAvg, toBW(transfer2, timeKernelAvg));
+    //printf("Copy CPU->GPU: %8.3f ms [%8.3f GB/s ]\n", 1000.f * timeCopyH2DAvg, toBW(totalBytes, timeCopyH2DAvg));
+    printf("Copy CPU->GPU: %8.3f ms [%8.3f GB/s ]\n", 1000.f * timeCopyH2DAvg, toBW(transfer1, timeCopyH2DAvg));
+    //printf("Copy CPU<-GPU: %8.3f ms [%8.3f GB/s ]\n", 1000.f * timeCopyD2HAvg, toBW(total_elems, timeCopyD2HAvg));
+    printf("Copy CPU<-GPU: %8.3f ms [%8.3f GB/s ]\n", 1000.f * timeCopyD2HAvg, toBW(transfer2, timeCopyD2HAvg));
     
     if (resultarray != NULL) {
         float* resultrefer = new float[total_elems]();
+        double startCPUtime = CycleTimer::currentSeconds();
         saxpyCpu(total_elems, alpha, xarray, yarray, resultrefer);
-    
+        double endCPUtime = CycleTimer::currentSeconds(); 
+        totalCPUTimeAvg = endCPUtime - startCPUtime;
         if (check_saxpy(total_elems, resultarray, resultrefer)) {
             printf("Test succeeded\n");
         } else {
             printf("Test failed\n");
         }
     }
+    //printf("CPU time : %8.3f ms [%8.3f GB/s ]\n", 1000.f * totalCPUTimeAvg, toBW(totalBytes, totalCPUTimeAvg));
 
     //
     // TODO: deallocate host-side memory
     //
     freeArrays(xarray, yarray, resultarray);
- 
+	double endmain = CycleTimer::currentSeconds(); 
+	//printf("Code Running Time: %f\n", endmain - startmain);
     return 0;
 }

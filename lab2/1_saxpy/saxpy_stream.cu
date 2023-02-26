@@ -20,8 +20,8 @@ saxpy_kernel(int N, float alpha, float* x, float* y, float* result) {
 
 static inline
 int getBlocks(long working_set_size, int threadsPerBlock) {
-    return (working_set_size + threadsPerBlock - 1)/threadsPerBlock;
   // TODO: implement and use this interface if necessary  
+    return (working_set_size + threadsPerBlock - 1)/threadsPerBlock;
 }
 
 void 
@@ -57,32 +57,35 @@ void saxpyCuda(long total_elems, float alpha, float* xarray, float* yarray, floa
     cudaMalloc(&device_result, total_elems * sizeof(float));
 
     // Create CUDA streams
-    cudaStream_t* streams = new cudaStream_t[partitions];
-    for (int i = 0; i < partitions; i++) {
+    double startTime = CycleTimer::currentSeconds();
+    int StreamCount = partitions;
+    cudaStream_t* streams = new cudaStream_t[StreamCount];
+
+    for (int i = 0; i < StreamCount; i++) {
         cudaStreamCreate(&streams[i]);
     }
 
-    double startCopyH2Dtime, endCopyH2Dtime, startCopyD2Htime, endCopyD2Htime, startGPUTime, endGPUTime, timeKernel;
-
     int partitionSize = getBlocks(total_elems, partitions); 
-    double startTime = CycleTimer::currentSeconds();
+
     for (int i = 0; i < partitions; i++) {
+
         // Compute the size of the partition
         int start = i * partitionSize;
-        int length = (i != partitions-1) ? partitionSize : total_elems - start;;
-        cudaMemcpyAsync(device_x + start, xarray + start, length * sizeof(float), cudaMemcpyHostToDevice, streams[i]);
-        cudaMemcpyAsync(device_y + start, yarray + start, length * sizeof(float), cudaMemcpyHostToDevice, streams[i]);
-     
+        int length = (i != partitions-1) ? partitionSize : total_elems - start;
+        //Copy HtoD asynchronously
+        cudaMemcpyAsync(device_x + start, xarray + start, length * sizeof(float), cudaMemcpyHostToDevice, streams[i%StreamCount]);
+        cudaMemcpyAsync(device_y + start, yarray + start, length * sizeof(float), cudaMemcpyHostToDevice, streams[i%StreamCount]);
+
         int threadBlocks = getBlocks(length, threadsPerBlock);        
         // Run saxpy_kernel on the GPU with the appropriate stream
-        saxpy_kernel<<<threadBlocks, threadsPerBlock, 0, streams[i]>>>(length, alpha, device_x + start, device_y + start, device_result + start);
-        // Copy result from GPU using cudaMemcpyAsync with the appropriate stream
-        cudaMemcpyAsync(resultarray + start, device_result + start, length * sizeof(float), cudaMemcpyDeviceToHost, streams[i]);
+        saxpy_kernel<<<threadBlocks, threadsPerBlock, 0, streams[i%StreamCount]>>>(length, alpha, device_x + start, device_y + start, device_result + start);
+        // Copy result from GPU with the appropriate stream
+        cudaMemcpyAsync(resultarray + start, device_result + start, length * sizeof(float), cudaMemcpyDeviceToHost, streams[i%StreamCount]);
     }
-    for (int i = 0; i < partitions; i++) {
+    /*for (int i = 0; i < StreamCount; i++) {
         cudaStreamSynchronize(streams[i]);
-    }
-    //cudaDeviceSynchronize();
+    }*/
+    cudaDeviceSynchronize();
     double endTime = CycleTimer::currentSeconds();
     double overallDuration = endTime - startTime;
     totalTimeAvg   += overallDuration;
