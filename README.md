@@ -1,6 +1,7 @@
-# parallelism-and-locality
+## parallelism-and-locality
 
+Jatin Khare, EID: jk47976
 
-$ idev -p skx-normal
+Malvika Badrinarayanan, EID: mb63573
 
-1. Run for the three matrix sizes.
+Sravya Satujoda, EID:ss99384

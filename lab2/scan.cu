@@ -1,16 +1,4 @@
-#include <stdio.h>
 
-#include <cuda.h>
-#include <cuda_runtime.h>
-#include <driver_functions.h>
-
-#include <thrust/scan.h>
-#include <thrust/device_ptr.h>
-#include <thrust/device_malloc.h>
-#include <thrust/device_free.h>
-#include "CycleTimer.h"
-
-//#define DEBUG
 
 extern float toBW(int bytes, float sec);
 
@@ -29,29 +17,6 @@ static inline int nextPow2(int n)
     return n;
 }
 
-__global__ void
-upsweep_kernel(int* x, int twod, int twod1, int N, int rounded_length) {
-    // calculate the thread index
-    int index = blockIdx.x * blockDim.x * twod1 + threadIdx.x * twod1;
-    // if in the provided bound
-    if (index < N){
-       x[index+twod1-1] += x[index+twod-1];
-    }
-    __syncthreads();
-    if(index == 0)
-        x[rounded_length] = 0;
-}
-
-__global__ void downsweep_kernel(int* x, int twod, int twod1, int N) {
-    int index = blockIdx.x * blockDim.x * twod1 + threadIdx.x * twod1;
-    __syncthreads();
-    if (index < N) {
-        int t = x[index+twod-1];   
-        x[index+twod-1] = x[index+twod1-1];
-        x[index+twod1-1] += t; 
-    }
-}
-
 void exclusive_scan(int* device_start, int length, int* device_result)
 {
     /* Fill in this function with your exclusive scan implementation.
@@ -63,25 +28,10 @@ void exclusive_scan(int* device_start, int length, int* device_result)
      * both the input and the output arrays are sized to accommodate the next
      * power of 2 larger than the input.
      */
-    int threadsPerBlock = 128; //this had the best performance
-
-    int rounded_length = nextPow2(length);
-    int blocksPerGrid;
-
-    //Upsweep Phase
-    for (int twod = 1; twod < rounded_length; twod*=2){
-        int twod1 = twod*2;
-        blocksPerGrid = ((std::ceil((float)length/twod1)) + threadsPerBlock - 1) / threadsPerBlock;
-        upsweep_kernel<<<blocksPerGrid, threadsPerBlock>>>(device_result, twod, twod1, length, rounded_length-1);
-        //cudaDeviceSynchronize();
-    }
-    //Upsweep Phase
-    for (int twod = rounded_length/2; twod >= 1; twod /= 2){
-        int twod1 = twod*2;
-        blocksPerGrid = (std::ceil(rounded_length/twod1) + threadsPerBlock - 1) / threadsPerBlock;
-        downsweep_kernel<<<blocksPerGrid, threadsPerBlock, 2*threadsPerBlock*sizeof(int)>>>(device_result, twod, twod1, length); 
-        //cudaDeviceSynchronize();
-    }        
+    const int block_size = 4;
+const int num_blocks = (length + block_size - 1) / block_size;
+exclusive_scan_GPU<<<num_blocks, block_size>>>(device_start, length, device_result);
+cudaDeviceSynchronize();
 }
 
 /* This function is a wrapper around the code you will write - it copies the
@@ -114,7 +64,7 @@ double cudaScan(int* inarray, int* end, int* resultarray)
 
     double startTime = CycleTimer::currentSeconds();
 
-    exclusive_scan(device_input, (end - inarray) , device_result);
+    exclusive_scan(device_input, end - inarray, device_result);
 
     // Wait for any work left over to be completed.
     cudaDeviceSynchronize();
@@ -123,27 +73,14 @@ double cudaScan(int* inarray, int* end, int* resultarray)
     
     cudaMemcpy(resultarray, device_result, (end - inarray) * sizeof(int),
                cudaMemcpyDeviceToHost);
-    
-    #ifdef DEBUG
-        int limit = 100;
-        fprintf(stderr,"i = ["); 
-        for(int i = 0; i< limit; i++){
-        if(i!=limit-1)
-            fprintf(stderr,"%d, ",inarray[i]); 
-        else
-            fprintf(stderr,"%d]",inarray[i]); 
-        }
-        fprintf(stderr,"\n"); 
 
-        fprintf(stderr,"A = ["); 
-        for(int i = 0; i< limit; i++){
-        if(i!=limit-1)
-            fprintf(stderr,"%d, ",resultarray[i]); 
-        else
-            fprintf(stderr,"%d]",resultarray[i]); 
-        }
-        fprintf(stderr,"\n"); 
-    #endif
+    for(int i = 0; i< 16; i++){
+        fprintf(stderr,"A[%d] = %d,\n", i, resultarray[i]); 
+    }
+    for(int i = 0; i< 16; i++){
+        fprintf(stderr,"inarray[%d] = %d,\n", i, inarray[i]); 
+    }
+
     return overallDuration;
 }
 
@@ -177,44 +114,7 @@ double cudaScanThrust(int* inarray, int* end, int* resultarray) {
     double overallDuration = endTime - startTime;
     return overallDuration;
 }
-__global__ void find_index_kernel(int* A, int length, int* indices) {
-    int index = blockIdx.x * blockDim.x + threadIdx.x;
-    if (index < length-1) {
-        if (A[index] == A[index+1]) {
-            indices[index] = 1;
-        } else {
-            indices[index] = 0;
-        }
-    }
-}
-/*__global__ void find_repeats_kernel(int* input, int n, int* prefix_sum, int* output) {
-    int thread = blockIdx.x * blockDim.x + threadIdx.x;
-       if(thread == 0){            
-        for(int index = 0; index <n-1;index++){
-                     if (input[index] == input[index+1]) {
-                        int location = prefix_sum[index];
-                        output[location] = index;
-                     }
-            }
-        }
-}*/
-__global__ void find_repeats_kernel(int* input, int length, int* prefix_sum, int* output) {
-    int thread = blockIdx.x * blockDim.x + threadIdx.x;
-        if(thread < length-1){
-                     if (input[thread] == input[thread+1]) {
-                        int location = prefix_sum[thread];
-                        output[location] = thread;
-                     }
-            }
-}
-__global__ void count_kernel(int *input, int length, int *count){
-    int index = blockIdx.x * blockDim.x + threadIdx.x;
-    if (index < length-1) {
-        if (input[index] == input[index+1]) {
-           atomicAdd(count, 1);
-        }
-    } 
-}
+
 int find_repeats(int *device_input, int length, int *device_output) {
     /* Finds all pairs of adjacent repeated elements in the list, storing the
      * indices of the first element of each pair (in order) into device_result.
@@ -227,28 +127,7 @@ int find_repeats(int *device_input, int length, int *device_output) {
      * it requires that. However, you must ensure that the results of
      * find_repeats are correct given the original length.
      */    
-
-    int threadsPerBlock = 1024;
-    int threadBlocks = (length + threadsPerBlock - 1) / threadsPerBlock;
-    int rounded_length = nextPow2(length);
-    int count = 0;
-    int *device_indices, *prefix_sum, *count_device;
-
-    cudaMalloc((void **)&count_device, sizeof(int));
-    cudaMalloc((void **)&device_indices, rounded_length * sizeof(int));
-    cudaMalloc((void **)&prefix_sum, rounded_length * sizeof(int));
-    cudaMemcpy(count_device, &count, sizeof(int), cudaMemcpyHostToDevice);
-    // seperate kernel to find the total count. 
-    count_kernel<<<threadBlocks, threadsPerBlock>>>(device_input, length, count_device);
-    cudaMemcpy(&count, count_device, sizeof(int), cudaMemcpyDeviceToHost);
-
-    //kernel to calculate the index array
-    find_index_kernel<<<threadBlocks, threadsPerBlock>>>(device_input, length, device_indices);
-    //finding the exclusive sum of the indices array
-    exclusive_scan(device_indices, length, device_indices);
-    find_repeats_kernel<<<threadBlocks, threadsPerBlock>>>(device_input, length, device_indices, device_output);
-
-    return count;
+    return 0;
 }
 
 /* Timing wrapper around find_repeats. You should not modify this function.
@@ -275,26 +154,6 @@ double cudaFindRepeats(int *input, int length, int *output, int *output_length) 
     cudaMemcpy(output, device_output, length * sizeof(int),
                cudaMemcpyDeviceToHost);
 
-    #ifdef DEBUG
-        int limit = 16;
-        fprintf(stderr,"i = ["); 
-        for(int i = 0; i< limit; i++){
-        if(i!=limit-1)
-            fprintf(stderr,"%d, ",input[i]); 
-        else
-            fprintf(stderr,"%d]",input[i]); 
-        }
-        fprintf(stderr,"\n"); 
-
-        fprintf(stderr,"A = ["); 
-        for(int i = 0; i< limit; i++){
-        if(i!=limit-1)
-            fprintf(stderr,"%d, ",output[i]); 
-        else
-            fprintf(stderr,"%d]",output[i]); 
-        }
-        fprintf(stderr,"\n"); 
-    #endif
     cudaFree(device_input);
     cudaFree(device_output);
 

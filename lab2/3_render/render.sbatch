@@ -10,5 +10,6 @@
 #SBATCH --mail-type=end     # email me when the job finishes
 module load gcc
 module load cuda
-./render -r cuda -b 0:4 -f rgbtest_cuda -s 768 rgb
+./render -r cuda -b 0:4 -f rgbtest_cuda -s 768 rand10k
+#./render_ref -r ref -b 0:4 -f rgbref_cuda -s 768 rgb
 ./checker.pl 
